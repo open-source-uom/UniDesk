@@ -9,6 +9,8 @@ from PyQt6.QtWidgets import QApplication, QMainWindow, QTabWidget
 from credits import CreditsTab
 from links import LinksTab
 
+from styles import STYLES
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -17,8 +19,9 @@ class MainWindow(QMainWindow):
         self.setMinimumSize(550, 450)
 
         tabs = QTabWidget()
-        tabs.addTab(CreditsTab(), "Credits")
         tabs.addTab(LinksTab(), "Links")
+        tabs.addTab(CreditsTab(), "Credits")
+       
 
         self.setCentralWidget(tabs)
 
@@ -26,6 +29,7 @@ class MainWindow(QMainWindow):
 def main():
     app = QApplication(sys.argv)
     app.setApplicationName("UniDesk")
+    app.setStyleSheet(STYLES)
 
     window = MainWindow()
     window.show()

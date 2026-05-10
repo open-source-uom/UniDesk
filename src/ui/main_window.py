@@ -1,5 +1,5 @@
-# Author: Emanuela Goxha 2026 <ics23184@uom.edu.gr>f
-rom PyQt6.QtWidgets import QMainWindow, QTabWidget
+# Author: Emanuela Goxha 2026 <ics23184@uom.edu.gr>
+from PyQt6.QtWidgets import QMainWindow, QTabWidget
 
 from credits import CreditsTab
 from links import LinksTab

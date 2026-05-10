@@ -32,7 +32,10 @@ class LinksTab(QWidget):
         frame.setFrameShape(QFrame.Shape.StyledPanel)
 
         layout = QVBoxLayout(frame)
-        layout.addWidget(QLabel(f"<b>{link['label']}</b>"))
+
+        label = QLabel(f"<b>{link['label']}</b>")
+        label.setStyleSheet("background-color: transparent; border: none;")
+        layout.addWidget(label)
 
         if link.get("projects"):
             projects_str = ", ".join(link["projects"])

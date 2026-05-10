@@ -54,11 +54,19 @@ class CreditsTab(QWidget):
         frame.setFrameShape(QFrame.Shape.StyledPanel)
 
         layout = QVBoxLayout(frame)
-        layout.addWidget(QLabel(f"<b>{person['name']}</b>"))
-        layout.addWidget(QLabel(person["role"]))
+
+        name = QLabel(f"<b>{person['name']}</b>")
+        name.setStyleSheet("background-color: transparent; border: none;")
+        layout.addWidget(name)
+        
+        role = QLabel(person["role"])
+        role.setStyleSheet("background-color: transparent; border: none;")
+        layout.addWidget(role)
 
         if person.get("projects"):
             projects_str = ", ".join(person["projects"])
-            layout.addWidget(QLabel(f"Projects: {projects_str}"))
+            projects = QLabel(f"Projects: {projects_str}")
+            projects.setStyleSheet("background-color: transparent; border: none;")
+            layout.addWidget(projects)
 
         return frame
