@@ -1,39 +1,17 @@
-# Author: Emanuela Goxha 2026 <ics23184@uom.edu.gr>
 import sys
 import os
 
 sys.path.insert(0, os.path.dirname(__file__))
 
-from PyQt6.QtWidgets import QApplication, QMainWindow, QTabWidget
-
-from credits import CreditsTab
-from links import LinksTab
-
-from styles import STYLES
-
-
-class MainWindow(QMainWindow):
-    def __init__(self):
-        super().__init__()
-        self.setWindowTitle("UniDesk")
-        self.setMinimumSize(550, 450)
-
-        tabs = QTabWidget()
-        tabs.addTab(LinksTab(), "Links")
-        tabs.addTab(CreditsTab(), "Credits")
-       
-
-        self.setCentralWidget(tabs)
+from PyQt6.QtWidgets import QApplication
+from home import UniOSWelcome
 
 
 def main():
     app = QApplication(sys.argv)
     app.setApplicationName("UniDesk")
-    app.setStyleSheet(STYLES)
-
-    window = MainWindow()
+    window = UniOSWelcome()
     window.show()
-
     sys.exit(app.exec())
 
 
