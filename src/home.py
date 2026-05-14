@@ -17,7 +17,7 @@ from links import LINKS
 
 FOOTER_LINKS = [
     {"label": "Discord", "url": "https://discord.gg/FJbv84uT"},
-    {"label": "GitHub",  "url": "https://github.com/"},
+    {"label": "GitHub",  "url": "https://github.com/open-source-uom"},
     {"label": "Website", "url": "https://opensource.uom.gr"},
 ]
 
