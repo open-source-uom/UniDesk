@@ -4,7 +4,7 @@ import os
 sys.path.insert(0, os.path.dirname(__file__))
 
 from PyQt6.QtWidgets import QApplication
-from home import UniOSWelcome
+from unidesk.home import UniOSWelcome
 
 
 def main():
