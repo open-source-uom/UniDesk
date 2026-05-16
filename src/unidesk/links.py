@@ -5,6 +5,20 @@ LINKS = [
         "label": "Discord Channel",
         "url": "https://discord.gg/FJbv84uT",
     },
-    # {"label": "UniMate",     "url": ""},
-    # {"label": "Welcome Site","url": ""},
+     {
+        "label": "Github",
+        "url": "https://github.com/open-source-uom",
+    },
+      {
+        "label": "UniMate",
+        "url": "https://open-source-uom.github.io/UniMate/",
+    },
+       {
+        "label": "Uni OS Official Webpage",
+        "url": "https://open-source-uom.github.io/UniOS-landing-page/",
+    },
+        {
+        "label": "Open Source UoM",
+        "url": "http://opensource.uom.gr/",
+    },
 ]
