@@ -1,7 +1,8 @@
 import sys
 import os
 
-sys.path.insert(0, os.path.dirname(__file__))
+src_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.insert(0, src_dir)
 
 from PyQt6.QtWidgets import QApplication
 from unidesk.home import UniOSWelcome
