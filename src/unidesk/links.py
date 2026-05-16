@@ -3,7 +3,7 @@
 LINKS = [
     {
         "label": "Discord Channel",
-        "url": "https://discord.gg/FJbv84uT",
+        "url": "https://discord.gg/QA9AxTdppX",
     },
      {
         "label": "Github",
