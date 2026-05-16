@@ -18,7 +18,7 @@ from links import LINKS
 FOOTER_LINKS = [
     {"label": "Discord", "url": "https://discord.gg/FJbv84uT"},
     {"label": "GitHub",  "url": "https://github.com/open-source-uom"},
-    {"label": "Website", "url": "https://opensource.uom.gr"},
+    {"label": "Website", "url": "https://open-source-uom.github.io/UniOS-landing-page/"},
 ]
 
 NAV_LEFT  = ["Introduction", "Features", "Links", "FAQ"]
