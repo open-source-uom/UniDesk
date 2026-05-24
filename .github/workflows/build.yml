@@ -3,33 +3,32 @@ name: Python CI/CD Pipeline (Linter + Debian Build)
 on:
   push:
     branches: [ "main" ]
+    tags: [ "v*" ]
   pull_request:
     branches: [ "main" ]
 
 jobs:
   validate-and-package:
     runs-on: ubuntu-24.04
-
+    permissions:
+      contents: write
     steps:
     - name: Checkout Source Code
       uses: actions/checkout@v4
       with:
-        fetch-depth: 0 # Required so git can read the author's name and email
+        fetch-depth: 0
 
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
         python-version: '3.12'
 
-    # --- CODE QUALITY CHECKS & DEPS ---
     - name: Install Python Dependencies
-      # FIXED: Added setuptools here so the GitHub Python environment has it
       run: pip install ruff setuptools
 
     - name: Run Ruff Static Analysis
       run: ruff check src/unidesk/
 
-    # --- NATIVE DEBIAN PACKAGING ---
     - name: Install Native Build Tools
       run: |
         sudo apt-get update
@@ -38,6 +37,10 @@ jobs:
     - name: Scaffold Debian Control Files
       run: |
         mkdir -p debian
+        mkdir -p debian/source
+
+        # Marks as native so Launchpad doesn't crash asking for an original tarball
+        echo "3.0 (native)" > debian/source/format
 
         cat << 'EOF' > debian/rules
         #!/usr/bin/make -f
@@ -50,7 +53,7 @@ jobs:
         Source: unidesk
         Section: python
         Priority: optional
-        Maintainer: Apostolos Chalis <tolishalis@csd.auth.gr>
+        Maintainer: Apostolos Chalis <achalis@csd.auth.gr>
         Build-Depends: debhelper-compat (= 13), dh-python, python3-all, python3-setuptools
         Standards-Version: 4.6.2
 
@@ -63,18 +66,25 @@ jobs:
         DEB_DATE=$(date -R)
         DEB_AUTHOR=$(git log -1 --pretty=format:'%an <%ae>')
 
-        printf "unidesk (1.0.0-1) noble; urgency=low\n\n  * Auto-generated release.\n\n -- %s  %s\n" "$DEB_AUTHOR" "$DEB_DATE" > debian/changelog
+        printf "unidesk (1.0.0) noble; urgency=low\n\n  * Auto-generated release.\n\n -- %s  %s\n" "$DEB_AUTHOR" "$DEB_DATE" > debian/changelog
 
-    - name: Build Debian Package
+    - name: Build Debian Packages (Binary & Source)
       run: |
         dpkg-buildpackage -us -uc -b
 
-        # Move the generated .deb file from the parent folder into a new folder here
-        mkdir -p output_package
-        mv ../*.deb output_package/
+        dpkg-buildpackage -us -uc -S
 
-    - name: Upload Debian Package Artifact
+        mkdir -p output_package
+        mv ../unidesk_* output_package/
+
+    - name: Upload All Package Artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: unidesk-debian-package
-        path: output_package/*.deb
+        name: unidesk-complete-packages
+        path: output_package/*
+
+    - name: Publish .deb to GitHub Releases
+      uses: softprops/action-gh-release@v2
+      if: startsWith(github.ref, 'refs/tags/') # Only runs if you push a tag like v1.0.0
+      with:
+        files: output_package/*.deb
