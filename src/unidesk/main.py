@@ -1,12 +1,14 @@
+from PyQt6.QtWidgets import QApplication
+from PyQt6.QtGui import QIcon
+from PyQt6.QtWidgets import QApplication
+
 import sys
 import os
 
+from unidesk.home import UniOSWelcome
+
 src_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 sys.path.insert(0, src_dir)
-
-from PyQt6.QtWidgets import QApplication
-from PyQt6.QtGui import QIcon  # <-- Add this import
-from unidesk.home import UniOSWelcome
 
 def main():
     app = QApplication(sys.argv)

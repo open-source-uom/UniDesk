@@ -207,8 +207,8 @@ class NavButton(QPushButton):
     def __init__(self, label, align_right=False):
         super().__init__(label)
         self.setFixedHeight(38)
-        align = "right" if align_right else "left"
-        self.setStyleSheet(f"""
+
+        self.setStyleSheet("""
             QPushButton {{
                 background-color: #2d1f3d;
                 border: 1px solid #8b5897;
