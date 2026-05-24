@@ -1,0 +1,42 @@
+name: Python CI/CD Pipeline (Linter + Debian Build)
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  validate-and-package:
+    runs-on: ubuntu-24.04
+
+    steps:
+    - name: Checkout Source Code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-module-version: '3.11' # Matches a stable baseline target
+
+    - name: Install Ruff Linter
+      run: pip install ruff
+
+    - name: Run Ruff Static Analysis
+      run: ruff check src/unidesk/
+
+    - name: Install Packaging Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y python3-all python3-stdeb dh-python
+
+    - name: Build Debian Package via stdeb
+      run: |
+        # Generates debian source and packages from setup.py layout
+        python3 setup.py --command-packages=stdeb.command bdist_deb
+
+    - name: Upload Debian Package Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: unidesk-debian-package
+        path: deb_dist/*.deb
