@@ -26,6 +26,12 @@ jobs:
     - name: Run Ruff Static Analysis
       run: ruff check src/unidesk/
 
+    # --- NATIVE DEBIAN PACKAGING ---
+    - name: Install Native Build Tools
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential debhelper dh-python python3-all python3-setuptools
+
     - name: Scaffold Debian Control Files
       run: |
         mkdir -p debian
