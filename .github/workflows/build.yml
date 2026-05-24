@@ -36,10 +36,8 @@ jobs:
       run: |
         mkdir -p debian
 
-        # 1. Create debian/compatibility level
         echo "13" > debian/compat
 
-        # 2. Create debian/rules (Instructs debhelper how to handle Python setups)
         cat << 'EOF' > debian/rules
         #!/usr/bin/make -f
         %:
@@ -47,7 +45,6 @@ jobs:
         EOF
         chmod +x debian/rules
 
-        # 3. Create debian/control (Metadata for the package)
         cat << 'EOF' > debian/control
         Source: unidesk
         Section: python
@@ -62,18 +59,14 @@ jobs:
         Description: Helper app for UniOS written in python/Qt
         EOF
 
-        # 4. Create debian/changelog (Required by dpkg-buildpackage)
         cat << 'EOF' > debian/changelog
         unidesk (1.0.0-1) noble; urgency=low
 
           * Initial release.
-
-         -- Ioannis Michadasis <michadasis@example.com>  Wed, 21 May 2026 12:00:00 +0000
         EOF
 
     - name: Build Debian Package
       run: |
-        # Build the source and binary .deb package cleanly using standard Linux utilities
         dpkg-buildpackage -us -uc -b
 
     - name: Upload Debian Package Artifact
