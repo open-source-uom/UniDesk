@@ -8,7 +8,7 @@ on:
 
 jobs:
   validate-and-package:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
 
     steps:
     - name: Checkout Source Code
@@ -33,7 +33,7 @@ jobs:
         cat << 'EOF' > debian/rules
         #!/usr/bin/make -f
         %:
-        	dh $@ --with python3 --buildsystem=pybuild
+            dh $@ --with python3 --buildsystem=pybuild
         EOF
         chmod +x debian/rules
 
@@ -51,5 +51,14 @@ jobs:
         Description: Helper app for UniOS written in python/Qt
         EOF
 
-        # This adds the vital changelog file that dpkg-buildpackage requires to run
-        printf "unidesk (1.0.0-1) noble; urgency=low\n\n  * Initial release.\n\n -- Apostolos Chalis <achalis@csd.auth.gr>  Sun, 24 May 2026 19:42:00 +0200\n\n" > debian/changelog
+        printf "unidesk (1.0.0-1); urgency=low\n\n  * Initial release.\n\n -- Apostolos Chalis <achalis@csd.auth.gr>  Sun, 24 May 2026 19:42:00 +0200\n\n" > debian/changelog
+
+    - name: Build Debian Package
+      run: |
+        dpkg-buildpackage -us -uc -b
+
+    - name: Upload Debian Package Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: unidesk-debian-package
+        path: ./*.deb
