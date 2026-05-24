@@ -26,7 +26,6 @@ jobs:
     - name: Run Ruff Static Analysis
       run: ruff check src/unidesk/
 
-    # --- NATIVE DEBIAN PACKAGING (Zero stdeb dependence) ---
     - name: Install Native Build Tools
       run: |
         sudo apt-get update
@@ -35,8 +34,6 @@ jobs:
     - name: Scaffold Debian Control Files
       run: |
         mkdir -p debian
-
-        echo "13" > debian/compat
 
         cat << 'EOF' > debian/rules
         #!/usr/bin/make -f
@@ -49,7 +46,7 @@ jobs:
         Source: unidesk
         Section: python
         Priority: optional
-        Maintainer: Ioannis Michadasis <michadasis@example.com>
+        Maintainer: Apostolos Chalis <achalis@csd.auth.gr>
         Build-Depends: debhelper-compat (= 13), dh-python, python3-all, python3-setuptools
         Standards-Version: 4.6.2
 
@@ -57,12 +54,6 @@ jobs:
         Architecture: all
         Depends: ${python3:Depends}, ${misc:Depends}, python3-pyqt6
         Description: Helper app for UniOS written in python/Qt
-        EOF
-
-        cat << 'EOF' > debian/changelog
-        unidesk (1.0.0-1) noble; urgency=low
-
-          * Initial release.
         EOF
 
     - name: Build Debian Package
