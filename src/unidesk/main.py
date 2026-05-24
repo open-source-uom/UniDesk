@@ -2,13 +2,8 @@ import os
 import sys
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QApplication
-from unidesk.home import UniOSWelcome
+from .home import UniOSWelcome
 
-src_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-if src_dir not in sys.path:
-    sys.path.insert(0, src_dir)
-
-from unidesk.home import UniOSWelcome
 
 def main():
     app = QApplication(sys.argv)
