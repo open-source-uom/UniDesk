@@ -69,8 +69,12 @@ jobs:
       run: |
         dpkg-buildpackage -us -uc -b
 
+        # Move the generated .deb file from the parent folder into a new folder here
+        mkdir -p output_package
+        mv ../*.deb output_package/
+
     - name: Upload Debian Package Artifact
       uses: actions/upload-artifact@v4
       with:
         name: unidesk-debian-package
-        path: ../*.deb
+        path: output_package/*.deb
