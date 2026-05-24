@@ -17,7 +17,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.11'
+        python-version: '3.12'
 
     # --- CODE QUALITY CHECKS ---
     - name: Install Ruff Linter
@@ -26,23 +26,58 @@ jobs:
     - name: Run Ruff Static Analysis
       run: ruff check src/unidesk/
 
-    # --- DEBIAN PACKAGING (Runs if linter passes) ---
-    - name: Install Packaging Dependencies
+    # --- NATIVE DEBIAN PACKAGING (Zero stdeb dependence) ---
+    - name: Install Native Build Tools
       run: |
         sudo apt-get update
-        sudo apt-get install -y python3-all python3-setuptools python3-all-dev debhelper devscripts python3-stdeb
+        sudo apt-get install -y build-essential debhelper dh-python python3-all python3-setuptools
 
-    - name: Build Debian Package via Native Scripts
+    - name: Scaffold Debian Control Files
       run: |
-        # 1. Generate the debian source structure directory targeting Ubuntu Noble
-        py2dsc --suite noble setup.py
+        mkdir -p debian
 
-        # 2. Move into the generated debian package source structure and compile the .deb
-        cd deb_dist/unidesk-*
-        dpkg-buildpackage -rfakeroot -uc -us -b
+        # 1. Create debian/compatibility level
+        echo "13" > debian/compat
+
+        # 2. Create debian/rules (Instructs debhelper how to handle Python setups)
+        cat << 'EOF' > debian/rules
+        #!/usr/bin/make -f
+        %:
+        	dh $@ --with python3 --buildsystem=pybuild
+        EOF
+        chmod +x debian/rules
+
+        # 3. Create debian/control (Metadata for the package)
+        cat << 'EOF' > debian/control
+        Source: unidesk
+        Section: python
+        Priority: optional
+        Maintainer: Ioannis Michadasis <michadasis@example.com>
+        Build-Depends: debhelper-compat (= 13), dh-python, python3-all, python3-setuptools
+        Standards-Version: 4.6.2
+
+        Package: python3-unidesk
+        Architecture: all
+        Depends: ${python3:Depends}, ${misc:Depends}, python3-pyqt6
+        Description: Helper app for UniOS written in python/Qt
+        EOF
+
+        # 4. Create debian/changelog (Required by dpkg-buildpackage)
+        cat << 'EOF' > debian/changelog
+        unidesk (1.0.0-1) noble; urgency=low
+
+          * Initial release.
+
+         -- Ioannis Michadasis <michadasis@example.com>  Wed, 21 May 2026 12:00:00 +0000
+        EOF
+
+    - name: Build Debian Package
+      run: |
+        # Build the source and binary .deb package cleanly using standard Linux utilities
+        dpkg-buildpackage -us -uc -b
 
     - name: Upload Debian Package Artifact
       uses: actions/upload-artifact@v4
       with:
         name: unidesk-debian-package
-        path: deb_dist/*.deb
+        path: ../*.deb
