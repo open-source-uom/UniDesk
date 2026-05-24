@@ -4,7 +4,6 @@ from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QApplication
 from .home import UniOSWelcome
 
-
 def main():
     app = QApplication(sys.argv)
     app.setApplicationName("UniDesk")
