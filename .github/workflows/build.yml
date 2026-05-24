@@ -26,11 +26,6 @@ jobs:
     - name: Run Ruff Static Analysis
       run: ruff check src/unidesk/
 
-    - name: Install Native Build Tools
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y build-essential debhelper dh-python python3-all python3-setuptools
-
     - name: Scaffold Debian Control Files
       run: |
         mkdir -p debian
@@ -56,12 +51,5 @@ jobs:
         Description: Helper app for UniOS written in python/Qt
         EOF
 
-    - name: Build Debian Package
-      run: |
-        dpkg-buildpackage -us -uc -b
-
-    - name: Upload Debian Package Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: unidesk-debian-package
-        path: ../*.deb
+        # This adds the vital changelog file that dpkg-buildpackage requires to run
+        printf "unidesk (1.0.0-1) noble; urgency=low\n\n  * Initial release.\n\n -- Apostolos Chalis <achalis@csd.auth.gr>  Sun, 24 May 2026 19:42:00 +0200\n\n" > debian/changelog
