@@ -37,8 +37,6 @@ To update any page content just open `pages.py` and edit the body text for that 
 
 Contributions are welcome. If you want to improve the UI, fix a typo, or add a new page, open a pull request on GitHub. If you find a bug, open an issue. There is no contribution too small.
 
-## Contributors
-
-Apostolos Chalis, Emanuela Goxha, Malamatenia Soulioti, Ioannis Michadasis, Alexandra Iordanidou, Konstantina Deligianni.
+--
 
 Built by Open Source UoM 2026
