@@ -13,15 +13,18 @@ jobs:
     steps:
     - name: Checkout Source Code
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0 # Required so git can read the author's name and email
 
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
         python-version: '3.12'
 
-    # --- CODE QUALITY CHECKS ---
-    - name: Install Ruff Linter
-      run: pip install ruff
+    # --- CODE QUALITY CHECKS & DEPS ---
+    - name: Install Python Dependencies
+      # FIXED: Added setuptools here so the GitHub Python environment has it
+      run: pip install ruff setuptools
 
     - name: Run Ruff Static Analysis
       run: ruff check src/unidesk/
@@ -47,7 +50,7 @@ jobs:
         Source: unidesk
         Section: python
         Priority: optional
-        Maintainer: Apostolos Chalis <achalis@csd.auth.gr>
+        Maintainer: Apostolos Chalis <tolishalis@csd.auth.gr>
         Build-Depends: debhelper-compat (= 13), dh-python, python3-all, python3-setuptools
         Standards-Version: 4.6.2
 
@@ -57,7 +60,10 @@ jobs:
         Description: Helper app for UniOS written in python/Qt
         EOF
 
-        printf "unidesk (1.0.0-1) noble; urgency=low\n\n  * Initial release.\n\n -- Apostolos Chalis <achalis@csd.auth.gr>  Sun, 24 May 2026 19:42:00 +0200\n" > debian/changelog
+        DEB_DATE=$(date -R)
+        DEB_AUTHOR=$(git log -1 --pretty=format:'%an <%ae>')
+
+        printf "unidesk (1.0.0-1) noble; urgency=low\n\n  * Auto-generated release.\n\n -- %s  %s\n" "$DEB_AUTHOR" "$DEB_DATE" > debian/changelog
 
     - name: Build Debian Package
       run: |
