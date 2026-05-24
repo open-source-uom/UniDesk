@@ -20,8 +20,6 @@ pip install -r requirements.txt
 python src/unidesk/main.py
 ```
 
-This registers the `unidesk` command so you can launch it from anywhere.
-
 ## Project structure
 
 ```
