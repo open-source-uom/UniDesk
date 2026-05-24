@@ -1,6 +1,6 @@
 # UniDesk
 
-UniDesk is the welcome application that ships with UniOS, a custom Linux distribution built for students and staff for all greek universities. It gives users a friendly starting point when they first boot into the system, with quick access to information about the project, useful links, and the people behind it.
+UniDesk is the welcome application that ships with UniOS, a custom Linux distribution built for students and staff for all greek universities. It gives users a friendly starting point when they boot into the system, with quick access to information about the project, useful links, and the people behind it.
 
 ## What it does
 
