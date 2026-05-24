@@ -1,20 +1,21 @@
-from PyQt6.QtWidgets import QApplication
+import os
+import sys
 from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QApplication
 
-import sys
-import os
+src_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if src_dir not in sys.path:
+    sys.path.insert(0, src_dir)
 
 from unidesk.home import UniOSWelcome
-
-src_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-sys.path.insert(0, src_dir)
 
 def main():
     app = QApplication(sys.argv)
     app.setApplicationName("UniDesk")
 
-    icon_path = os.path.abspath(os.path.join(src_dir, "..", "resources", "unios.png"))
+    icon_path = os.path.abspath(
+        os.path.join(src_dir, "..", "resources", "unios.png")
+    )
     app.setWindowIcon(QIcon(icon_path))
 
     window = UniOSWelcome()
