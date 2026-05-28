@@ -17,6 +17,10 @@ LINKS = [
         "label": "Uni OS Official Webpage",
         "url": "https://open-source-uom.github.io/UniOS-landing-page/",
     },
+    {
+        "label": "UniOS Docs",
+        "url": "https://open-source-uom.github.io/UniOS-docs/",
+    },
         {
         "label": "Open Source UoM",
         "url": "http://opensource.uom.gr/",
