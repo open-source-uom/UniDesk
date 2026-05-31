@@ -1,5 +1,14 @@
 import sys
 import os
+
+AUTOSTART_PATH = os.path.expanduser("~/.config/autostart/unidesk.desktop")
+
+def _is_autostart_disabled():
+    if not os.path.exists(AUTOSTART_PATH):
+        return False
+    with open(AUTOSTART_PATH) as f:
+        return "Hidden=true" in f.read()
+
 sys.path.insert(0, os.path.dirname(__file__))
 
 from PyQt6.QtWidgets import (
@@ -289,6 +298,17 @@ class UniOSWelcome(QMainWindow):
             left_col.addWidget(btn)
         left_col.addStretch()
 
+        self._autostart_btn = QPushButton(
+            "Enable Auto-start" if _is_autostart_disabled() else "Disable Auto-start"
+        )
+        self._autostart_btn.setStyleSheet(
+            "QPushButton { background: transparent; border: 1px solid #585b70; border-radius: 4px; "
+            "color: #585b70; font-size: 11px; padding: 4px 10px; }"
+            "QPushButton:hover { border-color: #a6adc8; color: #a6adc8; }"
+        )
+        self._autostart_btn.clicked.connect(self._toggle_autostart)
+        left_col.addWidget(self._autostart_btn)
+
         right_col = QVBoxLayout()
         right_col.setSpacing(10)
         for key in NAV_RIGHT:
@@ -315,6 +335,20 @@ class UniOSWelcome(QMainWindow):
         for key, widget in subpages.items():
             self._page_indices[key] = self._stack.addWidget(widget)
 
+    def _toggle_autostart(self):
+        if _is_autostart_disabled():
+            os.remove(AUTOSTART_PATH)
+            self._autostart_btn.setText("Disable Auto-start")
+        else:
+            os.makedirs(os.path.dirname(AUTOSTART_PATH), exist_ok=True)
+            with open(AUTOSTART_PATH, "w") as f:
+                f.write(
+                    "[Desktop Entry]\nType=Application\nName=UniDesk\n"
+                    "Exec=unidesk\nIcon=unios\nTerminal=false\n"
+                    "X-KDE-autostart-condition=false\nHidden=true\n"
+                )
+            self._autostart_btn.setText("Enable Auto-start")
+    
     def _show_page(self, key):
         self._stack.setCurrentIndex(self._page_indices[key])
 
