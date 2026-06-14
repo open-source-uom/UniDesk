@@ -1,5 +1,16 @@
-import sys
 import os
+import sys
+
+from PyQt6.QtWidgets import (
+    QWidget, QVBoxLayout, QHBoxLayout, QLabel,
+    QFrame, QPushButton, QStackedWidget, QScrollArea,
+    QApplication, QMainWindow
+)
+from PyQt6.QtCore import Qt, QUrl
+from PyQt6.QtGui import QDesktopServices
+from pages import PAGES
+from credits import CREDITS
+from links import LINKS
 
 AUTOSTART_PATH = os.path.expanduser("~/.config/autostart/unidesk.desktop")
 
@@ -9,23 +20,9 @@ def _is_autostart_disabled():
     with open(AUTOSTART_PATH) as f:
         return "Hidden=true" in f.read()
 
-sys.path.insert(0, os.path.dirname(__file__))
-
-from PyQt6.QtWidgets import (
-    QWidget, QVBoxLayout, QHBoxLayout, QLabel,
-    QFrame, QPushButton, QStackedWidget, QScrollArea,
-    QApplication, QMainWindow
-)
-from PyQt6.QtCore import Qt, QUrl
-from PyQt6.QtGui import QDesktopServices
-
-from pages import PAGES
-from credits import CREDITS
-from links import LINKS
-
 
 FOOTER_LINKS = [
-    {"label": "Discord", "url": "https://discord.gg/FJbv84uT"},
+    {"label": "Discord", "url": "https://discord.gg/QA9AxTdppX"},
     {"label": "GitHub",  "url": "https://github.com/open-source-uom"},
     {"label": "Website", "url": "https://open-source-uom.github.io/UniOS-landing-page/"},
 ]
