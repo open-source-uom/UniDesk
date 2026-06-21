@@ -28,6 +28,7 @@ from academic_institutions import UNIVERSITIES
 
 AUTOSTART_PATH = os.path.expanduser("~/.config/autostart/unidesk.desktop")
 
+
 def _is_autostart_disabled():
     if not os.path.exists(AUTOSTART_PATH):
         return False
@@ -37,15 +38,19 @@ def _is_autostart_disabled():
 
 FOOTER_LINKS = [
     {"label": "Discord", "url": "https://discord.gg/QA9AxTdppX"},
-    {"label": "GitHub",  "url": "https://github.com/open-source-uom"},
-    {"label": "Website", "url": "https://open-source-uom.github.io/UniOS-landing-page/"},
+    {"label": "GitHub", "url": "https://github.com/open-source-uom"},
+    {
+        "label": "Website",
+        "url": "https://open-source-uom.github.io/UniOS-landing-page/",
+    },
 ]
 
-NAV_LEFT  = ["Introduction", "Features", "Links", "FAQ"]
+NAV_LEFT = ["Introduction", "Features", "Links", "FAQ"]
 NAV_RIGHT = ["Community", "Source Code", "Contribute", "Credits"]
 
 
 # Helpers
+
 
 def _qlabel(text, size=12, color="#cdd6f4", bold=False, wrap=False):
     lbl = QLabel(text)
@@ -155,6 +160,7 @@ def _footer(on_configure=None):
 
 # Page Builders
 
+
 def build_text_page(key, on_back):
     data = PAGES[key]
     widget, cl = _scroll_page(on_back, key)
@@ -181,16 +187,24 @@ def build_credits_page(on_back):
         fl.setSpacing(2)
 
         name = _qlabel(person["name"], size=13, color="#cdd6f4", bold=True)
-        name.setStyleSheet(name.styleSheet() + " background: transparent; border: none;")
+        name.setStyleSheet(
+            name.styleSheet() + " background: transparent; border: none;"
+        )
         fl.addWidget(name)
 
         role = _qlabel(person["role"], size=11, color="#a6adc8")
-        role.setStyleSheet(role.styleSheet() + " background: transparent; border: none;")
+        role.setStyleSheet(
+            role.styleSheet() + " background: transparent; border: none;"
+        )
         fl.addWidget(role)
 
         if person.get("projects"):
-            proj = _qlabel("Projects: " + ", ".join(person["projects"]), size=11, color="#8b5897")
-            proj.setStyleSheet(proj.styleSheet() + " background: transparent; border: none;")
+            proj = _qlabel(
+                "Projects: " + ", ".join(person["projects"]), size=11, color="#8b5897"
+            )
+            proj.setStyleSheet(
+                proj.styleSheet() + " background: transparent; border: none;"
+            )
             fl.addWidget(proj)
 
         cl.addWidget(frame)
@@ -201,7 +215,7 @@ def build_credits_page(on_back):
 
 def build_links_page(on_back):
     widget, cl = _scroll_page(on_back, "Links")
-    
+
     for link in LINKS:
         frame = QFrame()
         frame.setFrameShape(QFrame.Shape.StyledPanel)
@@ -213,7 +227,9 @@ def build_links_page(on_back):
         fl.setSpacing(6)
 
         name = _qlabel(link["label"], size=13, color="#cdd6f4", bold=True)
-        name.setStyleSheet(name.styleSheet() + " background: transparent; border: none;")
+        name.setStyleSheet(
+            name.styleSheet() + " background: transparent; border: none;"
+        )
         fl.addWidget(name)
 
         btn = QPushButton("Open Link")
@@ -237,7 +253,9 @@ def build_academic_config_page(on_back):
     intro = _qlabel(
         "Set your university and department. This profile is shared with other "
         "UniOS apps, so pick the entries that match your studies.",
-        size=12, color="#a6adc8", wrap=True,
+        size=12,
+        color="#a6adc8",
+        wrap=True,
     )
     cl.addWidget(intro)
 
@@ -313,6 +331,7 @@ def build_academic_config_page(on_back):
 
 # Nav button
 
+
 class NavButton(QPushButton):
     def __init__(self, label, align_right=False):
         super().__init__(label)
@@ -341,6 +360,7 @@ class NavButton(QPushButton):
 
 
 # Main Window
+
 
 class UniOSWelcome(QMainWindow):
     def __init__(self):
@@ -376,7 +396,8 @@ class UniOSWelcome(QMainWindow):
 
         hero_sub = _qlabel(
             "A custom Linux distribution for the modern Greek university",
-            size=12, color="#a6adc8"
+            size=12,
+            color="#a6adc8",
         )
         hero_sub.setAlignment(Qt.AlignmentFlag.AlignCenter)
         hl.addWidget(hero_sub)
@@ -399,8 +420,8 @@ class UniOSWelcome(QMainWindow):
             left_col.addWidget(btn)
         left_col.addStretch()
 
-        center_col = QVBoxLayout()
-        center_col.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        bottom_row = QHBoxLayout()
+        bottom_row.setContentsMargins(28, 0, 28, 14)
         self._autostart_cb = QCheckBox("Auto start")
         self._autostart_cb.setChecked(True)
         _svg = b"<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><polyline points='3,8 6,12 13,4' fill='none' stroke='#cdd6f4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>"
@@ -409,7 +430,8 @@ class UniOSWelcome(QMainWindow):
         _f.flush()
         _check_path = _f.name
 
-        self._autostart_cb.setStyleSheet("""
+        self._autostart_cb.setStyleSheet(
+            """
             QCheckBox {
                 color: #a6adc8;
                 font-size: 12px;
@@ -434,12 +456,31 @@ class UniOSWelcome(QMainWindow):
             QCheckBox::indicator:checked:hover {
                 background-color: #9b68a7;
             }
-        """ % _check_path)
+        """
+            % _check_path
+        )
 
         self._autostart_cb.stateChanged.connect(self._toggle_autostart)
-        center_col.addStretch()
-        center_col.addWidget(self._autostart_cb, alignment=Qt.AlignmentFlag.AlignHCenter)
-        center_col.addStretch()
+        cfg_btn = QPushButton("Configure UniOS")
+        cfg_btn = QPushButton("Configure UniOS")
+        cfg_btn.setFixedHeight(28)
+        cfg_btn.setStyleSheet("""
+            QPushButton {
+                background-color: #2d1f3d;
+                border: 1px solid #8b5897;
+                border-radius: 5px;
+                color: #cdd6f4;
+                font-size: 11px;
+                font-weight: bold;
+                padding: 0 12px;
+            }
+        """)
+        cfg_btn.setCursor(Qt.CursorShape.PointingHandCursor)
+        cfg_btn.clicked.connect(self._show_academic_config)
+
+        bottom_row.addWidget(self._autostart_cb)
+        bottom_row.addStretch()
+        bottom_row.addWidget(cfg_btn)
 
         right_col = QVBoxLayout()
         right_col.setSpacing(10)
@@ -451,19 +492,18 @@ class UniOSWelcome(QMainWindow):
 
         nav_layout.addLayout(left_col)
         nav_layout.addLayout(right_col)
-        left_col.addWidget(self._autostart_cb)
         mp.addWidget(nav_widget, stretch=1)
+        mp.addLayout(bottom_row)
 
         mp.addWidget(_divider())
-        mp.addWidget(_footer(on_configure=self._show_academic_config))
-
+        mp.addWidget(_footer())
         self._stack.addWidget(main_page)  # index 0
 
     def _build_subpages(self):
         subpages = {
             **{key: build_text_page(key, self._show_main) for key in PAGES},
             "Credits": build_credits_page(self._show_main),
-            "Links":   build_links_page(self._show_main),
+            "Links": build_links_page(self._show_main),
             "Configure UniOS": build_academic_config_page(self._show_main),
         }
         for key, widget in subpages.items():
@@ -472,7 +512,7 @@ class UniOSWelcome(QMainWindow):
     def _toggle_autostart(self, state):
         if self._autostart_cb.isChecked():
             if os.path.exists(AUTOSTART_PATH):
-             os.remove(AUTOSTART_PATH)
+                os.remove(AUTOSTART_PATH)
         else:
             os.makedirs(os.path.dirname(AUTOSTART_PATH), exist_ok=True)
             with open(AUTOSTART_PATH, "w") as f:
@@ -481,7 +521,7 @@ class UniOSWelcome(QMainWindow):
                     "Exec=unidesk\nIcon=unios\nTerminal=false\n"
                     "X-KDE-autostart-condition=false\nHidden=true\n"
                 )
-    
+
     def _show_page(self, key):
         self._stack.setCurrentIndex(self._page_indices[key])
 
