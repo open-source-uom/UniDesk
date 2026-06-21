@@ -1,22 +1,29 @@
-import sys
 import os
-sys.path.insert(0, os.path.dirname(__file__))
+import sys
+import tempfile
 
 from PyQt6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel,
     QFrame, QPushButton, QStackedWidget, QScrollArea,
-    QApplication, QMainWindow
+    QApplication, QMainWindow, QCheckBox
 )
 from PyQt6.QtCore import Qt, QUrl
 from PyQt6.QtGui import QDesktopServices
-
 from pages import PAGES
 from credits import CREDITS
 from links import LINKS
 
+AUTOSTART_PATH = os.path.expanduser("~/.config/autostart/unidesk.desktop")
+
+def _is_autostart_disabled():
+    if not os.path.exists(AUTOSTART_PATH):
+        return False
+    with open(AUTOSTART_PATH) as f:
+        return "Hidden=true" in f.read()
+
 
 FOOTER_LINKS = [
-    {"label": "Discord", "url": "https://discord.gg/FJbv84uT"},
+    {"label": "Discord", "url": "https://discord.gg/QA9AxTdppX"},
     {"label": "GitHub",  "url": "https://github.com/open-source-uom"},
     {"label": "Website", "url": "https://open-source-uom.github.io/UniOS-landing-page/"},
 ]
@@ -289,6 +296,48 @@ class UniOSWelcome(QMainWindow):
             left_col.addWidget(btn)
         left_col.addStretch()
 
+        center_col = QVBoxLayout()
+        center_col.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self._autostart_cb = QCheckBox("Auto start")
+        self._autostart_cb.setChecked(True)
+        _svg = b"<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><polyline points='3,8 6,12 13,4' fill='none' stroke='#cdd6f4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>"
+        _f = tempfile.NamedTemporaryFile(suffix=".svg", delete=False)
+        _f.write(_svg)
+        _f.flush()
+        _check_path = _f.name
+
+        self._autostart_cb.setStyleSheet("""
+            QCheckBox {
+                color: #a6adc8;
+                font-size: 12px;
+                background: transparent;
+                spacing: 8px;
+            }
+            QCheckBox::indicator {
+                width: 16px;
+                height: 16px;
+                border: 1px solid #585b70;
+                border-radius: 4px;
+                background: transparent;
+            }
+            QCheckBox::indicator:hover {
+                border-color: #a6adc8;
+            }
+            QCheckBox::indicator:checked {
+                background-color: #8b5897;
+                border-color: #cba6f7;
+                image: url(%s);
+            }
+            QCheckBox::indicator:checked:hover {
+                background-color: #9b68a7;
+            }
+        """ % _check_path)
+
+        self._autostart_cb.stateChanged.connect(self._toggle_autostart)
+        center_col.addStretch()
+        center_col.addWidget(self._autostart_cb, alignment=Qt.AlignmentFlag.AlignHCenter)
+        center_col.addStretch()
+
         right_col = QVBoxLayout()
         right_col.setSpacing(10)
         for key in NAV_RIGHT:
@@ -299,6 +348,7 @@ class UniOSWelcome(QMainWindow):
 
         nav_layout.addLayout(left_col)
         nav_layout.addLayout(right_col)
+        left_col.addWidget(self._autostart_cb)
         mp.addWidget(nav_widget, stretch=1)
 
         mp.addWidget(_divider())
@@ -315,6 +365,19 @@ class UniOSWelcome(QMainWindow):
         for key, widget in subpages.items():
             self._page_indices[key] = self._stack.addWidget(widget)
 
+    def _toggle_autostart(self, state):
+        if self._autostart_cb.isChecked():
+            if os.path.exists(AUTOSTART_PATH):
+             os.remove(AUTOSTART_PATH)
+        else:
+            os.makedirs(os.path.dirname(AUTOSTART_PATH), exist_ok=True)
+            with open(AUTOSTART_PATH, "w") as f:
+                f.write(
+                    "[Desktop Entry]\nType=Application\nName=UniDesk\n"
+                    "Exec=unidesk\nIcon=unios\nTerminal=false\n"
+                    "X-KDE-autostart-condition=false\nHidden=true\n"
+                )
+    
     def _show_page(self, key):
         self._stack.setCurrentIndex(self._page_indices[key])
 
