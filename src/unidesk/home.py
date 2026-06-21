@@ -5,13 +5,15 @@ import tempfile
 from PyQt6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel,
     QFrame, QPushButton, QStackedWidget, QScrollArea,
-    QApplication, QMainWindow, QCheckBox
+    QApplication, QMainWindow, QCheckBox, QComboBox
 )
 from PyQt6.QtCore import Qt, QUrl
 from PyQt6.QtGui import QDesktopServices
 from pages import PAGES
 from credits import CREDITS
 from links import LINKS
+from academic_config import load_academic_config, save_academic_config
+from academic_institutions import UNIVERSITIES
 
 AUTOSTART_PATH = os.path.expanduser("~/.config/autostart/unidesk.desktop")
 
@@ -111,7 +113,7 @@ def _scroll_page(on_back, title):
     return widget, cl
 
 
-def _footer():
+def _footer(on_configure=None):
     footer = QWidget()
     footer.setFixedHeight(40)
     footer.setStyleSheet("background: #110d1a;")
@@ -119,6 +121,16 @@ def _footer():
     ft.setContentsMargins(14, 0, 14, 0)
     ft.addWidget(_qlabel("Open Source UoM · 2026", size=11, color="#585b70"))
     ft.addStretch()
+
+    if on_configure is not None:
+        cfg = QPushButton("Configure UniOS")
+        cfg.setStyleSheet(
+            "background: transparent; border: none; color: #8b5897; font-size: 11px;"
+        )
+        cfg.setCursor(Qt.CursorShape.PointingHandCursor)
+        cfg.clicked.connect(lambda _: on_configure())
+        ft.addWidget(cfg)
+
     for link in FOOTER_LINKS:
         b = QPushButton(link["label"])
         b.setStyleSheet(
@@ -204,6 +216,86 @@ def build_links_page(on_back):
 
         cl.addWidget(frame)
 
+    cl.addStretch()
+    return widget
+
+
+def build_academic_config_page(on_back):
+    widget, cl = _scroll_page(on_back, "Configure UniOS")
+
+    intro = _qlabel(
+        "Set your university and department. This profile is shared with other "
+        "UniOS apps, so pick the entries that match your studies.",
+        size=12, color="#a6adc8", wrap=True,
+    )
+    cl.addWidget(intro)
+
+    combo_style = (
+        "QComboBox { background-color: #2d1f3d; color: #cdd6f4; border: 1px solid #8b5897; "
+        "border-radius: 4px; padding: 6px 8px; font-size: 12px; }"
+        "QComboBox QAbstractItemView { background-color: #2d1f3d; color: #cdd6f4; "
+        "selection-background-color: #3d2a52; }"
+    )
+
+    cl.addWidget(_qlabel("University", size=12, color="#cdd6f4", bold=True))
+    university_combo = QComboBox()
+    university_combo.setStyleSheet(combo_style)
+    university_combo.setPlaceholderText("Select university")
+    university_combo.addItems(list(UNIVERSITIES.keys()))
+    university_combo.setCurrentIndex(-1)
+    cl.addWidget(university_combo)
+
+    cl.addWidget(_qlabel("Department", size=12, color="#cdd6f4", bold=True))
+    department_combo = QComboBox()
+    department_combo.setStyleSheet(combo_style)
+    department_combo.setPlaceholderText("Select department")
+    department_combo.setCurrentIndex(-1)
+    cl.addWidget(department_combo)
+
+    status = _qlabel("", size=11, color="#a6adc8", wrap=True)
+
+    def refresh_departments():
+        university = university_combo.currentText()
+        department_combo.clear()
+        if university in UNIVERSITIES:
+            department_combo.addItems(UNIVERSITIES[university])
+        department_combo.setCurrentIndex(-1)
+
+    university_combo.currentIndexChanged.connect(lambda _: refresh_departments())
+
+    # Pre-fill from any existing config, but only if the saved values are still
+    # known to us (UniBackpack may have entries we haven't mirrored yet).
+    saved = load_academic_config()
+    saved_university = saved["universityName"]
+    saved_department = saved["departmentName"]
+    if saved_university in UNIVERSITIES:
+        university_combo.setCurrentText(saved_university)
+        if saved_department in UNIVERSITIES[saved_university]:
+            department_combo.setCurrentText(saved_department)
+
+    save_btn = QPushButton("Save")
+    save_btn.setStyleSheet(
+        "QPushButton { background-color: #89b4fa; color: #1e1e2e; font-weight: bold; "
+        "border: none; border-radius: 4px; padding: 6px 12px; font-size: 12px; }"
+        "QPushButton:hover { background-color: #b4befe; }"
+    )
+
+    def on_save():
+        university = university_combo.currentText()
+        department = department_combo.currentText()
+        if not university or not department:
+            status.setText("Please select a university and department.")
+            status.setStyleSheet(status.styleSheet().replace("#a6adc8", "#f38ba8"))
+            return
+        save_academic_config(university, department)
+        status.setText(f"Saved: {university} · {department}")
+        status.setStyleSheet(status.styleSheet().replace("#f38ba8", "#a6adc8"))
+
+    save_btn.clicked.connect(lambda _: on_save())
+
+    cl.addSpacing(6)
+    cl.addWidget(save_btn)
+    cl.addWidget(status)
     cl.addStretch()
     return widget
 
@@ -352,7 +444,7 @@ class UniOSWelcome(QMainWindow):
         mp.addWidget(nav_widget, stretch=1)
 
         mp.addWidget(_divider())
-        mp.addWidget(_footer())
+        mp.addWidget(_footer(on_configure=self._show_academic_config))
 
         self._stack.addWidget(main_page)  # index 0
 
@@ -361,6 +453,7 @@ class UniOSWelcome(QMainWindow):
             **{key: build_text_page(key, self._show_main) for key in PAGES},
             "Credits": build_credits_page(self._show_main),
             "Links":   build_links_page(self._show_main),
+            "Configure UniOS": build_academic_config_page(self._show_main),
         }
         for key, widget in subpages.items():
             self._page_indices[key] = self._stack.addWidget(widget)
@@ -383,6 +476,9 @@ class UniOSWelcome(QMainWindow):
 
     def _show_main(self):
         self._stack.setCurrentIndex(0)
+
+    def _show_academic_config(self):
+        self._stack.setCurrentIndex(self._page_indices["Configure UniOS"])
 
 
 def main():
