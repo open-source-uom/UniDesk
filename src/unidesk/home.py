@@ -233,6 +233,7 @@ def build_links_page(on_back):
         fl.addWidget(name)
 
         btn = QPushButton("Open Link")
+        btn.setCursor(Qt.CursorShape.PointingHandCursor)
         btn.setStyleSheet(
             "QPushButton { background-color: #89b4fa; color: #1e1e2e; font-weight: bold; "
             "border: none; border-radius: 4px; padding: 5px 10px; font-size: 11px; }"
@@ -303,6 +304,7 @@ def build_academic_config_page(on_back):
             department_combo.setCurrentText(saved_department)
 
     save_btn = QPushButton("Save")
+    save_btn.setCursor(Qt.CursorShape.PointingHandCursor)
     save_btn.setStyleSheet(
         "QPushButton { background-color: #89b4fa; color: #1e1e2e; font-weight: bold; "
         "border: none; border-radius: 4px; padding: 6px 12px; font-size: 12px; }"
@@ -336,6 +338,7 @@ class NavButton(QPushButton):
     def __init__(self, label, align_right=False):
         super().__init__(label)
         self.setFixedHeight(38)
+        self.setCursor(Qt.CursorShape.PointingHandCursor)
 
         self.setStyleSheet("""
             QPushButton {{
