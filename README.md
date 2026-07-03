@@ -16,8 +16,18 @@ pip install -r requirements.txt
 
 ## Running it
 
+Set up a virtual environment and install the package:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+pip install -e .
 ```
-python src/unidesk/main.py
+
+Then run:
+
+```bash
+unidesk
 ```
 
 ## Project structure
