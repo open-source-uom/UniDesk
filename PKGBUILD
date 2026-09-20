@@ -28,32 +28,20 @@ package() {
 
     python -m installer --destdir="$pkgdir" dist/*.whl
 
-    install -d "$pkgdir/usr/share/applications"
-    install -d "$pkgdir/etc/xdg/autostart"
-    install -d "$pkgdir/usr/share/pixmaps"
-    install -d "$pkgdir/usr/share/icons/hicolor/128x128/apps"
+    install -Dm644 "$startdir/resources/unidesk.desktop" \
+        "$pkgdir/usr/share/applications/unidesk.desktop"
 
     if [ -f "$startdir/resources/unios.png" ]; then
-        install -Dm644 "$startdir/resources/unios.png" "$pkgdir/usr/share/pixmaps/unidesk.png"
-        install -Dm644 "$startdir/resources/unios.png" "$pkgdir/usr/share/icons/hicolor/128x128/apps/unidesk.png" 
-        ICON="unidesk"
+        install -Dm644 "$startdir/resources/unios.png" \
+            "$pkgdir/usr/share/pixmaps/unidesk.png"
+        install -Dm644 "$startdir/resources/unios.png" \
+            "$pkgdir/usr/share/icons/hicolor/128x128/apps/unidesk.png"
     else
-        echo "==> ERROR: resources/unios.png not found in $startdir"
-        ICON="system-help"
+        echo "==> WARNING: resources/unios.png not found in $startdir"
+        sed -i 's/^Icon=unidesk$/Icon=system-help/' \
+            "$pkgdir/usr/share/applications/unidesk.desktop"
     fi
 
-    cat << EOF > "$pkgdir/usr/share/applications/unidesk.desktop"
-[Desktop Entry]
-Type=Application
-Name=UniDesk
-GenericName=UniOS Welcome App
-Exec=unidesk
-Icon=$ICON
-Terminal=false
-StartupNotify=true
-StartupWMClass=UniDesk
-Categories=Utility;System;Qt;
-EOF
-
-    cp "$pkgdir/usr/share/applications/unidesk.desktop" "$pkgdir/etc/xdg/autostart/"
+    install -Dm644 "$pkgdir/usr/share/applications/unidesk.desktop" \
+        "$pkgdir/etc/xdg/autostart/unidesk.desktop"
 }

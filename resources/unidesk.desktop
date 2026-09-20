@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=UniDesk
+GenericName=UniOS Welcome App
+Exec=unidesk
+Icon=unidesk
+Terminal=false
+StartupNotify=true
+StartupWMClass=UniDesk
+Categories=Utility;System;Qt;
