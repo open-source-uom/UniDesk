@@ -13,6 +13,18 @@ jobs:
     permissions:
       contents: write
     steps:
+    - name: Checkout Source Code
+      uses: actions/checkout@v7
+      with:
+        fetch-depth: 0
+
+    - name: Set up Python
+      uses: actions/setup-python@v7
+      with:
+        python-version: '3.17'
+
+    - name: Install Python Dependencies
+      run: pip install ruff setuptools
 
     - name: Run Ruff Static Analysis
       run: ruff check src/unidesk/
