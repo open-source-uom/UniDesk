@@ -1,4 +1,4 @@
-name: Python CI/CD Pipeline (Linter + Debian Build)
+name: Python CI/CD Pipeline
 
 on:
   push:
@@ -13,78 +13,7 @@ jobs:
     permissions:
       contents: write
     steps:
-    - name: Checkout Source Code
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.12'
-
-    - name: Install Python Dependencies
-      run: pip install ruff setuptools
 
     - name: Run Ruff Static Analysis
       run: ruff check src/unidesk/
 
-    - name: Install Native Build Tools
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y build-essential debhelper dh-python python3-all python3-setuptools
-
-    - name: Scaffold Debian Control Files
-      run: |
-        mkdir -p debian
-        mkdir -p debian/source
-
-        # Marks as native so Launchpad doesn't crash asking for an original tarball
-        echo "3.0 (native)" > debian/source/format
-
-        cat << 'EOF' > debian/rules
-        #!/usr/bin/make -f
-        %:
-        	dh $@ --with python3 --buildsystem=pybuild
-        EOF
-        chmod +x debian/rules
-
-        cat << 'EOF' > debian/control
-        Source: unidesk
-        Section: python
-        Priority: optional
-        Maintainer: Apostolos Chalis <achalis@csd.auth.gr>
-        Build-Depends: debhelper-compat (= 13), dh-python, python3-all, python3-setuptools
-        Standards-Version: 4.6.2
-
-        Package: python3-unidesk
-        Architecture: all
-        Depends: ${python3:Depends}, ${misc:Depends}, python3-pyqt6
-        Description: Helper app for UniOS written in python/Qt
-        EOF
-
-        DEB_DATE=$(date -R)
-        DEB_AUTHOR=$(git log -1 --pretty=format:'%an <%ae>')
-
-        printf "unidesk (1.0.0) noble; urgency=low\n\n  * Auto-generated release.\n\n -- %s  %s\n" "$DEB_AUTHOR" "$DEB_DATE" > debian/changelog
-
-    - name: Build Debian Packages (Binary & Source)
-      run: |
-        dpkg-buildpackage -us -uc -b
-
-        dpkg-buildpackage -us -uc -S
-
-        mkdir -p output_package
-        mv ../unidesk_* output_package/
-
-    - name: Upload All Package Artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: unidesk-complete-packages
-        path: output_package/*
-
-    - name: Publish .deb to GitHub Releases
-      uses: softprops/action-gh-release@v2
-      if: startsWith(github.ref, 'refs/tags/') # Only runs if you push a tag like v1.0.0
-      with:
-        files: output_package/*.deb
