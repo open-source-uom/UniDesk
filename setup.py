@@ -11,7 +11,7 @@ setup(
     package_dir={"": "src"},
     packages=find_packages(where="src"),
     package_data={
-        "unidesk.resources.text_data": ["*.json"],
+        "unidesk.assets.text_data": ["*.json"],
     },
     install_requires=["PyQt6"],
     entry_points={

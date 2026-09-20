@@ -4,7 +4,7 @@ import json
 from functools import cache
 from importlib.resources import files
 
-_TEXT_DATA_PACKAGE = "unidesk.resources.text_data"
+_TEXT_DATA_PACKAGE = "unidesk.assets.text_data"
 
 
 @cache

@@ -5,7 +5,6 @@ import tempfile
 sys.path.insert(0, os.path.dirname(__file__))
 
 from academic_config import load_academic_config, save_academic_config
-from academic_institutions import UNIVERSITIES
 from PyQt6.QtCore import Qt, QUrl
 from PyQt6.QtGui import QDesktopServices
 from PyQt6.QtWidgets import (
@@ -28,6 +27,7 @@ PAGES = pages()
 CREDITS = load("credits")["people"]
 LINKS = load("links")["links"]
 UI = load("ui_strings")
+UNIVERSITIES = load("academic_institutions")["universities"]
 _NAV = load("navigation")
 
 AUTOSTART_PATH = os.path.expanduser("~/.config/autostart/unidesk.desktop")

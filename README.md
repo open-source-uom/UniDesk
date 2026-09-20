@@ -37,22 +37,22 @@ src/unidesk/
     main.py                   entry point
     home.py                   main window and all navigation logic
     text_data.py              loads the text below from the bundled JSON
-    academic_institutions.py  known universities and their departments
     academic_config.py        reads/writes the shared academic profile
-    resources/text_data/
+    assets/text_data/
         pages.json            body text for each informational page
         faq.json              FAQ entries as question/answer pairs
         credits.json          list of contributors
         links.json            external links shown in the Links page
         navigation.json       nav button labels and footer links
         ui_strings.json       buttons, titles and other interface text
+        academic_institutions.json  known universities and their departments
 ```
 
-All user-facing text lives in `resources/text_data/`. To update page content edit `pages.json`; to add a contributor edit `credits.json`. No Python changes are needed to change copy.
+All user-facing text lives in `assets/text_data/`. To update page content edit `pages.json`; to add a contributor edit `credits.json`. No Python changes are needed to change copy.
 
 ## Academic profile
 
-The footer on the home screen has a **Configure UniOS** button. It opens a page where you pick your university and department from dropdowns, which is saved to `~/.unios/academicConfig.json`. Other UniOS apps (such as UniBackpack) read this file, so the available choices live in `academic_institutions.py` and must stay in sync with those apps. If UniBackpack adds new universities or departments, mirror them in `academic_institutions.py`.
+The footer on the home screen has a **Configure UniOS** button. It opens a page where you pick your university and department from dropdowns, which is saved to `~/.unios/academicConfig.json`. Other UniOS apps (such as UniBackpack) read this file, so the available choices live in `assets/text_data/academic_institutions.json` and must stay in sync with those apps. If UniBackpack adds new universities or departments, mirror them in `assets/text_data/academic_institutions.json`.
 
 ## Contributing
 
