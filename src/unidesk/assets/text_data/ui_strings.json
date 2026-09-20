@@ -1,0 +1,22 @@
+{
+  "window_title": "UniDesk",
+  "hero_title": "Welcome to UniOS",
+  "hero_subtitle": "A custom Linux distribution for the modern Greek university",
+  "back_button": "← Back",
+  "footer_copyright": "Open Source UoM · 2026",
+  "open_link_button": "Open Link",
+  "projects_prefix": "Projects: ",
+  "autostart_checkbox": "Auto start",
+  "configure_button": "Configure UniOS",
+  "credits_page_title": "Credits",
+  "links_page_title": "Links",
+  "academic_config_page_title": "Configure UniOS",
+  "academic_config_intro": "Set your university and department. This profile is shared with other UniOS apps, so pick the entries that match your studies.",
+  "academic_university_label": "University",
+  "academic_department_label": "Department",
+  "academic_university_placeholder": "Select university",
+  "academic_department_placeholder": "Select department",
+  "academic_save_button": "Save",
+  "academic_error_incomplete": "Please select a university and department.",
+  "academic_saved_template": "Saved: {university} · {department}"
+}

@@ -10,6 +10,9 @@ setup(
     # Crucial for the new structure:
     package_dir={"": "src"},
     packages=find_packages(where="src"),
+    package_data={
+        "unidesk.assets.text_data": ["*.json"],
+    },
     install_requires=["PyQt6"],
     entry_points={
         'console_scripts': [

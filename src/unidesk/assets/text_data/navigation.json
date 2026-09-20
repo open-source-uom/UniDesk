@@ -1,0 +1,28 @@
+{
+  "nav_left": [
+    "Introduction",
+    "Features",
+    "Links",
+    "FAQ"
+  ],
+  "nav_right": [
+    "Community",
+    "Source Code",
+    "Contribute",
+    "Credits"
+  ],
+  "footer_links": [
+    {
+      "label": "Discord",
+      "url": "https://discord.gg/QA9AxTdppX"
+    },
+    {
+      "label": "GitHub",
+      "url": "https://github.com/open-source-uom"
+    },
+    {
+      "label": "Website",
+      "url": "https://open-source-uom.github.io/UniOS-landing-page/"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "entries": [
+    {
+      "question": "Can I install UniOS alongside Windows?",
+      "answer": "Yes, the installer supports dual boot."
+    },
+    {
+      "question": "How do I update the system?",
+      "answer": "Run `sudo apt update && sudo apt upgrade` in a terminal."
+    },
+    {
+      "question": "Something is broken. Where do I report it?",
+      "answer": "Open an issue on our GitHub repository or reach out on Discord."
+    },
+    {
+      "question": "Can I use UniOS on my personal laptop?",
+      "answer": "Absolutely - it is designed for any hardware."
+    },
+    {
+      "question": "Is UniOS free?",
+      "answer": "Yes, UniOS is free as in freedom not as in beer."
+    }
+  ]
+}

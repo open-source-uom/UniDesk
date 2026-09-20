@@ -1,0 +1,17 @@
+{
+  "_comment": "This list must stay in sync with UniBackpack's hardcoded values (UniBackpack/src/MainWindow.cpp).",
+  "universities": {
+    "Aristotle University of Thessaloniki": [
+      "Informatics",
+      "Physics"
+    ],
+    "University of Western Macedonia": [
+      "Informatics",
+      "Mechanical Engineering"
+    ],
+    "University of Macedonia": [
+      "Applied Informatics",
+      "Economics"
+    ]
+  }
+}

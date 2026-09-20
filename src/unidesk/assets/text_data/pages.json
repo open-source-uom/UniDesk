@@ -1,0 +1,20 @@
+{
+  "Introduction": {
+    "body": "UniOS is a custom Linux distribution built specifically to be used by students & staff at all Greek Universities.\n\nIt is based on Kubuntu and ships with a carefully selected set of tools for academic work, programming, and everyday use, all pre-configured so you can get started without any manual setup. It's developed and maintained by the Open Source UoM community."
+  },
+  "Features": {
+    "body": "• KDE Plasma desktop, preconfigured with a clean academic theme\n• UniBackpack integration for installing additional software\n• Greek and English language support\n• Lightweight footprint - runs well on older hardware"
+  },
+  "FAQ": {
+    "body_from": "faq"
+  },
+  "Community": {
+    "body": "UniOS is built by students, for students.\n\nJoin the Open Source UoM community to:\n• Get help and support from fellow students\n• Share tips, tweaks, and configurations\n• Participate in workshops and coding events\n• Stay updated on new releases and features\n\nYou can find us on Discord — the invite link is in the footer.\nEveryone is welcome, regardless of experience level."
+  },
+  "Source Code": {
+    "body": "UniOS is fully open source.\n\nAll build scripts and code for the apps are publicly available on GitHub under an open license.\n\nRepositories:\n• UniOS - The Linux distro you are currently using.\n• UniBackpack - software installer tool for all Universities.\n• UniMate - A Webpage that helps you install various Linux apps.\n• UniDesk - this desktop launcher app.\n\nFeel free to fork, study, and adapt the code for your own projects. Pull requests and bug reports are always welcome."
+  },
+  "Contribute": {
+    "body": "Want to help build UniOS? There are many ways to contribute:\n\n• Code - fix bugs, add features, improve scripts\n• Design - UI/UX improvements, icons, wallpapers\n• Documentation - write guides, translate content\n• Testing - try new builds and report issues\n• Community - help other students in Discord\n\nNo contribution is too small. Check our GitHub repositories to get started."
+  }
+}

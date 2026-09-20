@@ -4,27 +4,31 @@ import tempfile
 
 sys.path.insert(0, os.path.dirname(__file__))
 
-from PyQt6.QtWidgets import (
-    QWidget,
-    QVBoxLayout,
-    QHBoxLayout,
-    QLabel,
-    QFrame,
-    QPushButton,
-    QStackedWidget,
-    QScrollArea,
-    QApplication,
-    QMainWindow,
-    QCheckBox,
-    QComboBox,
-)
+from academic_config import load_academic_config, save_academic_config
 from PyQt6.QtCore import Qt, QUrl
 from PyQt6.QtGui import QDesktopServices
-from pages import PAGES
-from credits import CREDITS
-from links import LINKS
-from academic_config import load_academic_config, save_academic_config
-from academic_institutions import UNIVERSITIES
+from PyQt6.QtWidgets import (
+    QApplication,
+    QCheckBox,
+    QComboBox,
+    QFrame,
+    QHBoxLayout,
+    QLabel,
+    QMainWindow,
+    QPushButton,
+    QScrollArea,
+    QStackedWidget,
+    QVBoxLayout,
+    QWidget,
+)
+from text_data import load, pages
+
+PAGES = pages()
+CREDITS = load("credits")["people"]
+LINKS = load("links")["links"]
+UI = load("ui_strings")
+UNIVERSITIES = load("academic_institutions")["universities"]
+_NAV = load("navigation")
 
 AUTOSTART_PATH = os.path.expanduser("~/.config/autostart/unidesk.desktop")
 
@@ -36,17 +40,10 @@ def _is_autostart_disabled():
         return "Hidden=true" in f.read()
 
 
-FOOTER_LINKS = [
-    {"label": "Discord", "url": "https://discord.gg/QA9AxTdppX"},
-    {"label": "GitHub", "url": "https://github.com/open-source-uom"},
-    {
-        "label": "Website",
-        "url": "https://open-source-uom.github.io/UniOS-landing-page/",
-    },
-]
+FOOTER_LINKS = _NAV["footer_links"]
 
-NAV_LEFT = ["Introduction", "Features", "Links", "FAQ"]
-NAV_RIGHT = ["Community", "Source Code", "Contribute", "Credits"]
+NAV_LEFT = _NAV["nav_left"]
+NAV_RIGHT = _NAV["nav_right"]
 
 
 # Helpers
@@ -78,7 +75,7 @@ def _back_bar(title, on_back):
     layout = QHBoxLayout(bar)
     layout.setContentsMargins(12, 0, 12, 0)
 
-    btn = QPushButton("← Back")
+    btn = QPushButton(UI["back_button"])
     btn.setFixedWidth(70)
     btn.setStyleSheet(
         "background: transparent; border: none; color: #a6adc8; "
@@ -135,11 +132,11 @@ def _footer(on_configure=None):
     footer.setStyleSheet("background: #110d1a;")
     ft = QHBoxLayout(footer)
     ft.setContentsMargins(14, 0, 14, 0)
-    ft.addWidget(_qlabel("Open Source UoM · 2026", size=11, color="#585b70"))
+    ft.addWidget(_qlabel(UI["footer_copyright"], size=11, color="#585b70"))
     ft.addStretch()
 
     if on_configure is not None:
-        cfg = QPushButton("Configure UniOS")
+        cfg = QPushButton(UI["configure_button"])
         cfg.setStyleSheet(
             "background: transparent; border: none; color: #8b5897; font-size: 11px;"
         )
@@ -174,7 +171,7 @@ def build_text_page(key, on_back):
 
 
 def build_credits_page(on_back):
-    widget, cl = _scroll_page(on_back, "Credits")
+    widget, cl = _scroll_page(on_back, UI["credits_page_title"])
 
     for person in CREDITS:
         frame = QFrame()
@@ -200,7 +197,9 @@ def build_credits_page(on_back):
 
         if person.get("projects"):
             proj = _qlabel(
-                "Projects: " + ", ".join(person["projects"]), size=11, color="#8b5897"
+                UI["projects_prefix"] + ", ".join(person["projects"]),
+                size=11,
+                color="#8b5897",
             )
             proj.setStyleSheet(
                 proj.styleSheet() + " background: transparent; border: none;"
@@ -214,7 +213,7 @@ def build_credits_page(on_back):
 
 
 def build_links_page(on_back):
-    widget, cl = _scroll_page(on_back, "Links")
+    widget, cl = _scroll_page(on_back, UI["links_page_title"])
 
     for link in LINKS:
         frame = QFrame()
@@ -232,7 +231,7 @@ def build_links_page(on_back):
         )
         fl.addWidget(name)
 
-        btn = QPushButton("Open Link")
+        btn = QPushButton(UI["open_link_button"])
         btn.setCursor(Qt.CursorShape.PointingHandCursor)
         btn.setStyleSheet(
             "QPushButton { background-color: #89b4fa; color: #1e1e2e; font-weight: bold; "
@@ -249,11 +248,10 @@ def build_links_page(on_back):
 
 
 def build_academic_config_page(on_back):
-    widget, cl = _scroll_page(on_back, "Configure UniOS")
+    widget, cl = _scroll_page(on_back, UI["academic_config_page_title"])
 
     intro = _qlabel(
-        "Set your university and department. This profile is shared with other "
-        "UniOS apps, so pick the entries that match your studies.",
+        UI["academic_config_intro"],
         size=12,
         color="#a6adc8",
         wrap=True,
@@ -267,18 +265,22 @@ def build_academic_config_page(on_back):
         "selection-background-color: #3d2a52; }"
     )
 
-    cl.addWidget(_qlabel("University", size=12, color="#cdd6f4", bold=True))
+    cl.addWidget(
+        _qlabel(UI["academic_university_label"], size=12, color="#cdd6f4", bold=True)
+    )
     university_combo = QComboBox()
     university_combo.setStyleSheet(combo_style)
-    university_combo.setPlaceholderText("Select university")
+    university_combo.setPlaceholderText(UI["academic_university_placeholder"])
     university_combo.addItems(list(UNIVERSITIES.keys()))
     university_combo.setCurrentIndex(-1)
     cl.addWidget(university_combo)
 
-    cl.addWidget(_qlabel("Department", size=12, color="#cdd6f4", bold=True))
+    cl.addWidget(
+        _qlabel(UI["academic_department_label"], size=12, color="#cdd6f4", bold=True)
+    )
     department_combo = QComboBox()
     department_combo.setStyleSheet(combo_style)
-    department_combo.setPlaceholderText("Select department")
+    department_combo.setPlaceholderText(UI["academic_department_placeholder"])
     department_combo.setCurrentIndex(-1)
     cl.addWidget(department_combo)
 
@@ -303,7 +305,7 @@ def build_academic_config_page(on_back):
         if saved_department in UNIVERSITIES[saved_university]:
             department_combo.setCurrentText(saved_department)
 
-    save_btn = QPushButton("Save")
+    save_btn = QPushButton(UI["academic_save_button"])
     save_btn.setCursor(Qt.CursorShape.PointingHandCursor)
     save_btn.setStyleSheet(
         "QPushButton { background-color: #89b4fa; color: #1e1e2e; font-weight: bold; "
@@ -315,11 +317,15 @@ def build_academic_config_page(on_back):
         university = university_combo.currentText()
         department = department_combo.currentText()
         if not university or not department:
-            status.setText("Please select a university and department.")
+            status.setText(UI["academic_error_incomplete"])
             status.setStyleSheet(status.styleSheet().replace("#a6adc8", "#f38ba8"))
             return
         save_academic_config(university, department)
-        status.setText(f"Saved: {university} · {department}")
+        status.setText(
+            UI["academic_saved_template"].format(
+                university=university, department=department
+            )
+        )
         status.setStyleSheet(status.styleSheet().replace("#f38ba8", "#a6adc8"))
 
     save_btn.clicked.connect(lambda _: on_save())
@@ -368,7 +374,7 @@ class NavButton(QPushButton):
 class UniOSWelcome(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("UniDesk")
+        self.setWindowTitle(UI["window_title"])
         self.setMinimumSize(580, 500)
         self.setStyleSheet("background-color: #1a1226;")
 
@@ -393,12 +399,12 @@ class UniOSWelcome(QMainWindow):
         hl.setContentsMargins(20, 20, 20, 16)
         hl.setSpacing(4)
 
-        hero_title = _qlabel("Welcome to UniOS", size=26, color="#cba6f7", bold=True)
+        hero_title = _qlabel(UI["hero_title"], size=26, color="#cba6f7", bold=True)
         hero_title.setAlignment(Qt.AlignmentFlag.AlignCenter)
         hl.addWidget(hero_title)
 
         hero_sub = _qlabel(
-            "A custom Linux distribution for the modern Greek university",
+            UI["hero_subtitle"],
             size=12,
             color="#a6adc8",
         )
@@ -425,7 +431,7 @@ class UniOSWelcome(QMainWindow):
 
         bottom_row = QHBoxLayout()
         bottom_row.setContentsMargins(28, 0, 28, 14)
-        self._autostart_cb = QCheckBox("Auto start")
+        self._autostart_cb = QCheckBox(UI["autostart_checkbox"])
         self._autostart_cb.setChecked(True)
         _svg = b"<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><polyline points='3,8 6,12 13,4' fill='none' stroke='#cdd6f4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>"
         _f = tempfile.NamedTemporaryFile(suffix=".svg", delete=False)
@@ -464,8 +470,8 @@ class UniOSWelcome(QMainWindow):
         )
 
         self._autostart_cb.stateChanged.connect(self._toggle_autostart)
-        cfg_btn = QPushButton("Configure UniOS")
-        cfg_btn = QPushButton("Configure UniOS")
+        cfg_btn = QPushButton(UI["configure_button"])
+        cfg_btn = QPushButton(UI["configure_button"])
         cfg_btn.setFixedHeight(28)
         cfg_btn.setStyleSheet("""
             QPushButton {
@@ -505,9 +511,11 @@ class UniOSWelcome(QMainWindow):
     def _build_subpages(self):
         subpages = {
             **{key: build_text_page(key, self._show_main) for key in PAGES},
-            "Credits": build_credits_page(self._show_main),
-            "Links": build_links_page(self._show_main),
-            "Configure UniOS": build_academic_config_page(self._show_main),
+            UI["credits_page_title"]: build_credits_page(self._show_main),
+            UI["links_page_title"]: build_links_page(self._show_main),
+            UI["academic_config_page_title"]: build_academic_config_page(
+                self._show_main
+            ),
         }
         for key, widget in subpages.items():
             self._page_indices[key] = self._stack.addWidget(widget)
@@ -532,7 +540,7 @@ class UniOSWelcome(QMainWindow):
         self._stack.setCurrentIndex(0)
 
     def _show_academic_config(self):
-        self._stack.setCurrentIndex(self._page_indices["Configure UniOS"])
+        self._stack.setCurrentIndex(self._page_indices[UI["academic_config_page_title"]])
 
 
 def main():
