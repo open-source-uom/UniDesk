@@ -1,4 +1,4 @@
-name: Python CI/CD Pipeline
+name: Static Analysis
 
 on:
   push:
