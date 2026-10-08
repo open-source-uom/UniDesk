@@ -12,6 +12,7 @@ setup(
     packages=find_packages(where="src"),
     package_data={
         "unidesk.assets.text_data": ["*.json"],
+        "unidesk.styles": ["*/*.qss", "*.svg"],
     },
     install_requires=["PyQt6"],
     entry_points={

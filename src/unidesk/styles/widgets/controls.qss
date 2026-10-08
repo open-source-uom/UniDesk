@@ -1,0 +1,17 @@
+QPushButton[button="back"] { background: transparent; border: none; color: #a6adc8; font-size: 12px; text-align: left; }
+QPushButton[button="footer-link"] { background: transparent; border: none; color: #8b5897; font-size: 11px; }
+QPushButton[button="link"] { background-color: #89b4fa; color: #1e1e2e; font-weight: bold; border: none; border-radius: 4px; padding: 5px 10px; font-size: 11px; }
+QPushButton[button="link"]:hover { background-color: #b4befe; }
+QPushButton[button="save"] { background-color: #89b4fa; color: #1e1e2e; font-weight: bold; border: none; border-radius: 4px; padding: 6px 12px; font-size: 12px; }
+QPushButton[button="save"]:hover { background-color: #b4befe; }
+QPushButton[button="configure"] { background-color: #2d1f3d; border: 1px solid #8b5897; border-radius: 5px; color: #cdd6f4; font-size: 11px; font-weight: bold; padding: 0 12px; }
+QPushButton[button="nav"] { background-color: #2d1f3d; border: 1px solid #8b5897; border-radius: 5px; color: #cdd6f4; font-size: 12px; font-weight: bold; padding: 0 14px; text-align: center; }
+QPushButton[button="nav"]:hover { background-color: #3d2a52; border-color: #cba6f7; color: #cba6f7; }
+QPushButton[button="nav"]:pressed { background-color: #211a2c; }
+QCheckBox[control="autostart"] { color: #a6adc8; font-size: 12px; background: transparent; spacing: 8px; }
+QCheckBox[control="autostart"]::indicator { width: 16px; height: 16px; border: 1px solid #585b70; border-radius: 4px; background: transparent; }
+QCheckBox[control="autostart"]::indicator:hover { border-color: #a6adc8; }
+QCheckBox[control="autostart"]::indicator:checked { background-color: #8b5897; border-color: #cba6f7; image: url("__CHECK_SVG__"); }
+QCheckBox[control="autostart"]::indicator:checked:hover { background-color: #9b68a7; }
+QComboBox[control="academic"] { background-color: #2d1f3d; color: #cdd6f4; border: 1px solid #8b5897; border-radius: 4px; padding: 6px 8px; font-size: 12px; }
+QComboBox[control="academic"] QAbstractItemView { background-color: #2d1f3d; color: #cdd6f4; selection-background-color: #3d2a52; }

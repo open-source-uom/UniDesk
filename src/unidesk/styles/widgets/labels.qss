@@ -1,0 +1,9 @@
+QLabel { background: transparent; border: none; }
+QLabel[role="title"] { color: #cba6f7; font-size: 26px; font-weight: bold; }
+QLabel[role="body"] { color: #a6adc8; font-size: 12px; font-weight: normal; }
+QLabel[role="field-label"] { color: #cdd6f4; font-size: 12px; font-weight: bold; }
+QLabel[role="card-title"] { color: #cdd6f4; font-size: 13px; font-weight: bold; }
+QLabel[role="muted"] { color: #a6adc8; font-size: 11px; font-weight: normal; }
+QLabel[state="error"] { color: #f38ba8; }
+QLabel[role="accent"] { color: #8b5897; font-size: 11px; font-weight: normal; }
+QLabel[role="footer"] { color: #585b70; font-size: 11px; font-weight: normal; }
