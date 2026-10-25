@@ -1,4 +1,5 @@
-"""Shared widget builders used by the main window and its pages."""
+"""@file widgets.py
+@brief Shared widget builders used by the main window and its pages."""
 
 from PyQt6.QtCore import Qt, QUrl
 from PyQt6.QtGui import QDesktopServices
@@ -20,7 +21,12 @@ FOOTER_LINKS = load("navigation")["footer_links"]
 
 
 def qlabel(text, role="body", wrap=False):
-    """Return a QLabel styled by its semantic role."""
+    """@brief Creates a label styled by its role in labels.qss.
+    @param text Text shown in the label.
+    @param role Style role, for example "body", "title", "muted" or "card-title".
+    @param wrap True to turn on word wrap.
+    @return The styled QLabel.
+    """
     lbl = QLabel(text)
     lbl.setProperty("role", role)
     lbl.setStyleSheet(load_qss("widgets/labels.qss"))
@@ -30,7 +36,9 @@ def qlabel(text, role="body", wrap=False):
 
 
 def divider():
-    """Return a 1px horizontal separator line."""
+    """@brief Creates a 1px horizontal separator line.
+    @return The divider QFrame.
+    """
     line = QFrame()
     line.setFrameShape(QFrame.Shape.HLine)
     line.setFixedHeight(1)
@@ -40,7 +48,11 @@ def divider():
 
 
 def back_bar(title, on_back):
-    """Return the top bar of a subpage: a Back button and a centred title."""
+    """@brief Creates the top bar of a subpage, with a Back button and a centred title.
+    @param title Text shown in the middle of the bar.
+    @param on_back Callback run when Back is clicked.
+    @return The bar widget.
+    """
     bar_widget = QWidget()
     bar_widget.setFixedHeight(40)
     bar_widget.setProperty("layout", "bar")
@@ -64,7 +76,11 @@ def back_bar(title, on_back):
 
 
 def scroll_page(on_back, title):
-    """Returns (outer_widget, content_layout) with back bar already added."""
+    """@brief Creates a subpage with a back bar, a scrollable content area and the footer.
+    @param on_back Callback run when Back is clicked.
+    @param title Page title shown in the back bar.
+    @return A (widget, layout) tuple. Add the page content to the layout.
+    """
     widget = QWidget()
     outer = QVBoxLayout(widget)
     outer.setContentsMargins(0, 0, 0, 0)
@@ -96,7 +112,10 @@ def scroll_page(on_back, title):
 
 
 def card(spacing):
-    """Returns (frame, layout) for a bordered content card."""
+    """@brief Creates a bordered content card.
+    @param spacing Space in pixels between the widgets inside the card.
+    @return A (frame, layout) tuple. Add the card content to the layout.
+    """
     frame = QFrame()
     frame.setFrameShape(QFrame.Shape.StyledPanel)
     frame.setProperty("layout", "card")
@@ -108,7 +127,10 @@ def card(spacing):
 
 
 def footer(on_configure=None):
-    """Return the footer bar with the copyright notice and external links."""
+    """@brief Creates the footer bar with the copyright notice and external links.
+    @param on_configure Optional callback. When given, a Configure button is added that runs it.
+    @return The footer widget.
+    """
     footer_widget = QWidget()
     footer_widget.setFixedHeight(40)
     footer_widget.setProperty("layout", "bar")
@@ -137,9 +159,12 @@ def footer(on_configure=None):
 
 
 class NavButton(QPushButton):
-    """Large button on the main page that opens a subpage."""
+    """@brief Large button on the main page that opens a subpage."""
 
     def __init__(self, label):
+        """@brief Creates the button with the nav style.
+        @param label Button text, which is also the key of the page it opens.
+        """
         super().__init__(label)
         self.setFixedHeight(38)
         self.setCursor(Qt.CursorShape.PointingHandCursor)

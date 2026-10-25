@@ -1,4 +1,5 @@
-"""Per-user override of the UniDesk autostart entry."""
+"""@file autostart.py
+@brief Turns UniDesk autostart on or off for the current user."""
 
 import os
 
@@ -14,7 +15,9 @@ _DISABLED_ENTRY = (
 
 
 def is_autostart_disabled():
-    """Return True if the user has written an override hiding the autostart entry."""
+    """@brief Checks whether the user has turned autostart off.
+    @return True if a user override hides the system autostart entry.
+    """
     if not os.path.exists(AUTOSTART_PATH):
         return False
     with open(AUTOSTART_PATH, encoding="utf-8") as f:
@@ -22,7 +25,9 @@ def is_autostart_disabled():
 
 
 def set_autostart(enabled):
-    """Enable autostart by removing the user override, or disable it by writing one."""
+    """@brief Enables autostart by removing the user override, or disables it by writing one.
+    @param enabled True to start UniDesk on login, False to turn that off.
+    """
     if enabled:
         if os.path.exists(AUTOSTART_PATH):
             os.remove(AUTOSTART_PATH)

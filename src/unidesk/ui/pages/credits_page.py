@@ -1,4 +1,5 @@
-"""Credits page listing the project contributors."""
+"""@file credits_page.py
+@brief Credits page listing the project contributors."""
 
 from ...helpers.text_data import load
 from ..widgets import card, qlabel, scroll_page
@@ -8,7 +9,10 @@ UI = load("ui_strings")
 
 
 def build_credits_page(on_back):
-    """Return the credits page, with one card per contributor."""
+    """@brief Creates the credits page, with one card per contributor from credits.json.
+    @param on_back Callback run when Back is clicked.
+    @return The page widget.
+    """
     widget, cl = scroll_page(on_back, UI["credits_page_title"])
 
     for person in CREDITS:

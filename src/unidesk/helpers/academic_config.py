@@ -1,4 +1,5 @@
-"""Load and save the shared UniOS academic profile."""
+"""@file academic_config.py
+@brief Loads and saves the shared UniOS academic profile."""
 
 import json
 import os
@@ -10,10 +11,10 @@ CONFIG_PATH = os.path.join(CONFIG_DIR, "academicConfig.json")
 
 
 def load_academic_config():
-    """Return the saved academic profile as a dict.
+    """@brief Reads the saved academic profile from disk.
 
-    Always returns {"universityName": str, "departmentName": str}. A missing,
-    corrupt, or partial file yields empty strings instead of raising.
+    A missing, corrupt or partial file gives empty strings instead of an error.
+    @return A dict with the "universityName" and "departmentName" keys.
     """
     config = {"universityName": "", "departmentName": ""}
     try:
@@ -29,7 +30,10 @@ def load_academic_config():
 
 
 def save_academic_config(university, department):
-    """Persist the academic profile to ~/.unios/academicConfig.json."""
+    """@brief Saves the academic profile to ~/.unios/academicConfig.json.
+    @param university Name of the chosen university.
+    @param department Name of the chosen department.
+    """
     os.makedirs(CONFIG_DIR, exist_ok=True)
     data = {
         "universityName": university,

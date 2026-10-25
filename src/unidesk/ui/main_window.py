@@ -1,4 +1,5 @@
-"""UniDesk main window."""
+"""@file main_window.py
+@brief UniDesk main window."""
 
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import (
@@ -33,9 +34,13 @@ NAV_RIGHT = _NAV["nav_right"]
 
 
 class UniOSWelcome(QMainWindow):
-    """Main window: a hero, the nav buttons, and a stack of subpages."""
+    """@brief Main window with a hero, the nav buttons and a stack of subpages.
+
+    Index 0 of the stack is the main page and every subpage is looked up by its title.
+    """
 
     def __init__(self):
+        """@brief Builds the main page and all subpages."""
         super().__init__()
         self.setWindowTitle(UI["window_title"])
         self.setMinimumSize(580, 500)

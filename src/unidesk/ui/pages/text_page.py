@@ -1,4 +1,5 @@
-"""Plain text subpages defined in pages.json."""
+"""@file text_page.py
+@brief Plain text subpages defined in pages.json."""
 
 from PyQt6.QtCore import Qt
 
@@ -9,7 +10,11 @@ PAGES = pages()
 
 
 def build_text_page(key, on_back):
-    """Return the scrollable text page for the pages.json entry `key`."""
+    """@brief Creates the scrollable text page for one pages.json entry.
+    @param key Title of the page in pages.json, also shown in the back bar.
+    @param on_back Callback run when Back is clicked.
+    @return The page widget.
+    """
     data = PAGES[key]
     widget, cl = scroll_page(on_back, key)
 

@@ -1,4 +1,5 @@
-"""UniDesk entry point."""
+"""@file main.py
+@brief UniDesk entry point."""
 
 import os
 import sys
@@ -10,7 +11,11 @@ from .ui.main_window import UniOSWelcome
 
 
 def main():
-    """Create the Qt application, show the welcome window and run it."""
+    """@brief Creates the Qt application, shows the welcome window and runs it.
+
+    The app icon comes from the installed pixmap, then the repo resources folder,
+    then the icon theme.
+    """
     app = QApplication(sys.argv)
     app.setApplicationName("unidesk")
     app.setDesktopFileName("unidesk")

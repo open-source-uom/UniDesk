@@ -1,4 +1,5 @@
-"""Useful links page."""
+"""@file links_page.py
+@brief Useful links page."""
 
 from PyQt6.QtCore import Qt, QUrl
 from PyQt6.QtGui import QDesktopServices
@@ -13,7 +14,10 @@ UI = load("ui_strings")
 
 
 def build_links_page(on_back):
-    """Return the links page, with one card and Open button per link."""
+    """@brief Creates the links page, with one card and Open button per link in links.json.
+    @param on_back Callback run when Back is clicked.
+    @return The page widget.
+    """
     widget, cl = scroll_page(on_back, UI["links_page_title"])
 
     for link in LINKS:
