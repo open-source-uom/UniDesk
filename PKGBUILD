@@ -1,8 +1,7 @@
-# Maintainer: Antonios Rainakis <antonyrai26@gmail.com> 
 pkgname=unidesk-git
 _pkgname=unidesk
-pkgver=r129.dd9049b
-pkgrel=1
+pkgver=1.0
+pkgrel=2
 pkgdesc="Welcome and academic configuration app for UniOS"
 arch=('x86_64')
 url="https://github.com/open-source-uom/unidesk"
