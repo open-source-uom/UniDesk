@@ -7,6 +7,7 @@ arch=('any')
 url="https://github.com/open-source-uom/unidesk"
 license=('GPL-3.0-or-later')
 depends=(
+    'hicolor-icon-theme'
     'python'
     'python-pyqt6'
 )
