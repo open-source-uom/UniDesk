@@ -1,43 +1,54 @@
-pkgname=unidesk
-pkgver=1.0
-pkgrel=2
+# Maintainer: Antonios Rainakis <antonyrai26@gmail.com> 
+pkgname=unidesk-git
+_pkgname=unidesk
+pkgver=r129.dd9049b
+pkgrel=1
 pkgdesc="Welcome and academic configuration app for UniOS"
 arch=('any')
-url="https://github.com/opensource-uom/unidesk"
+url="https://github.com/open-source-uom/unidesk"
 license=('GPL-3.0-or-later')
 depends=(
+    'hicolor-icon-theme'
     'python'
     'python-pyqt6'
 )
 makedepends=(
+    'git'
     'python-build'
     'python-installer'
     'python-wheel'
     'python-setuptools'
 )
-source=()
-sha256sums=()
+provides=("${_pkgname}")
+conflicts=(${_pkgname})
+source=("git+${url}.git")
+sha256sums=('SKIP')
+
+pkgver() {
+    cd "${_pkgname}"
+    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short=7 HEAD)"
+}
 
 build() {
-    cd "$startdir"
+    cd "${_pkgname}"
     python -m build --wheel --no-isolation
 }
 
 package() {
-    cd "$startdir"
+    cd "${_pkgname}"
 
     python -m installer --destdir="$pkgdir" dist/*.whl
 
-    install -Dm644 "$startdir/resources/unidesk.desktop" \
+    install -Dm644 "resources/unidesk.desktop" \
         "$pkgdir/usr/share/applications/unidesk.desktop"
 
-    if [ -f "$startdir/resources/unios.png" ]; then
-        install -Dm644 "$startdir/resources/unios.png" \
+    if [ -f "resources/unios.png" ]; then
+        install -Dm644 "resources/unios.png" \
             "$pkgdir/usr/share/pixmaps/unidesk.png"
-        install -Dm644 "$startdir/resources/unios.png" \
+        install -Dm644 "resources/unios.png" \
             "$pkgdir/usr/share/icons/hicolor/128x128/apps/unidesk.png"
     else
-        echo "==> WARNING: resources/unios.png not found in $startdir"
+        echo "==> WARNING: resources/unios.png not found"
         sed -i 's/^Icon=unidesk$/Icon=system-help/' \
             "$pkgdir/usr/share/applications/unidesk.desktop"
     fi
