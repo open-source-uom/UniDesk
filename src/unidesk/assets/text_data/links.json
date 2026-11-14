@@ -1,11 +1,17 @@
 {
   "links": [
     {
-      "label": "Discord Channel",
+      "label": {
+        "en": "Discord Channel",
+        "el": "Κανάλι Discord"
+      },
       "url": "https://discord.com/invite/QA9AxTdppX"
     },
     {
-      "label": "Department's software list",
+      "label": {
+        "en": "Department's software list",
+        "el": "Λίστα λογισμικού του τμήματος"
+      },
       "url": "https://docs.google.com/forms/d/e/1FAIpQLSfX27PSSPFWNH55Uq4GX2pxhh2egHBLEAk_rCPdye5924wz6Q/viewform"
     },
     {
@@ -13,11 +19,17 @@
       "url": "https://github.com/open-source-uom"
     },
     {
-      "label": "Uni OS Official Webpage",
+      "label": {
+        "en": "Uni OS Official Webpage",
+        "el": "Επίσημη ιστοσελίδα UniOS"
+      },
       "url": "https://open-source-uom.github.io/UniOS-landing-page/"
     },
     {
-      "label": "UniOS Docs",
+      "label": {
+        "en": "UniOS Docs",
+        "el": "Τεκμηρίωση UniOS"
+      },
       "url": "https://open-source-uom.github.io/UniOS-docs/"
     }
   ]

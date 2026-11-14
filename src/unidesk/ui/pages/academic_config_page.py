@@ -9,9 +9,6 @@ from ...helpers.text_data import load
 from ...styles.loader import load_qss
 from ..widgets import qlabel, scroll_page
 
-UI = load("ui_strings")
-UNIVERSITIES = load("academic_institutions")["universities"]
-
 
 def _academic_combo(placeholder, items=()):
     """@brief Creates a styled combo box with nothing selected.
@@ -35,6 +32,8 @@ def build_academic_config_page(on_back):
     @param on_back Callback run when Back is clicked.
     @return The page widget.
     """
+    UI = load("ui_strings")
+    UNIVERSITIES = load("academic_institutions")["universities"]
     widget, cl = scroll_page(on_back, UI["academic_config_page_title"])
 
     intro = qlabel(UI["academic_config_intro"], role="body", wrap=True)

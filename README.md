@@ -76,7 +76,21 @@ tests/
     test_ui.py                offscreen smoke tests for the main window and config page
 ```
 
-All user-facing text lives in `assets/text_data/`. To update page content edit `pages.json`; to add a contributor edit `credits.json`. No Python changes are needed to change copy.
+All user-facing text lives in `assets/text_data/`. To update page content edit `pages.json`; to add a contributor edit `credits.json`. No Python changes are needed to change copy, but update every language when you do (see Translations).
+
+## Translations
+
+UniDesk supports English and Greek (`SUPPORTED` in `helpers/text_data.py`). Translatable strings in `assets/text_data/*.json` are stored inline, one entry per language:
+
+```json
+"back_button": { "en": "← Back", "el": "← Πίσω" }
+```
+
+The top-left button on the main page switches language and remembers the choice in `~/.config/unidesk/settings.json`. At startup the language comes from `UNIDESK_LANG` (`en` or `el`), then that saved choice, then `LANGUAGE`, `LC_ALL`, `LC_MESSAGES` and `LANG`. Anything else falls back to English, and so does a missing translation.
+
+- Page ids (`"Introduction"`, `"FAQ"`, ...) are stable keys and are never translated. Their display titles live under `titles` in `navigation.json`.
+- Names, URLs and `academic_institutions.json` are not translated: the saved university and department must stay in sync with the other UniOS apps.
+- To add a language, add its code to `SUPPORTED` in `helpers/text_data.py` and add it to every `{ "en": ..., "el": ... }` entry. `tests/test_text_data.py` fails if any entry is missing a language.
 
 ## Academic profile
 
