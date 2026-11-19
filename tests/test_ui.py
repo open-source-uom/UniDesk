@@ -5,7 +5,7 @@ import json
 import pytest
 from PyQt6.QtWidgets import QComboBox, QPushButton
 
-from unidesk.helpers import academic_config, autostart, text_data
+from unidesk.helpers import academic_config, autostart, settings, text_data
 
 UI = text_data.load("ui_strings")
 UNIS = text_data.load("academic_institutions")["universities"]
@@ -100,3 +100,71 @@ def test_config_page_ignores_unknown_saved_university(config_page):
     uni, dept, _ = config_page()
     assert uni.currentIndex() == -1
     assert dept.count() == 0
+
+
+def test_nav_buttons_show_translated_titles(window):
+    nav = text_data.load("navigation")
+    labels = {b.text() for b in window.findChildren(QPushButton)}
+    for key in nav["nav_left"] + nav["nav_right"]:
+        assert text_data.page_title(key) in labels
+
+
+@pytest.mark.parametrize("lang", text_data.SUPPORTED)
+def test_window_builds_in_every_language(qtbot, lang):
+    from unidesk.ui.main_window import UniOSWelcome
+
+    text_data.set_language(lang)
+    w = UniOSWelcome()
+    qtbot.addWidget(w)
+    assert w.windowTitle() == text_data.load("ui_strings", lang)["window_title"]
+
+
+def test_language_button_shows_the_other_language(window):
+    assert window._language_btn.text() == text_data.LANGUAGE_NAMES["el"]
+
+
+def test_language_button_switches_and_saves(window):
+    window._language_btn.click()
+    assert text_data.get_language() == "el"
+    assert settings.load_language() == "el"
+    assert window._language_btn.text() == text_data.LANGUAGE_NAMES["en"]
+
+    window._language_btn.click()
+    assert text_data.get_language() == "en"
+    assert settings.load_language() == "en"
+    assert window._language_btn.text() == text_data.LANGUAGE_NAMES["el"]
+
+
+def test_language_switch_rebuilds_pages_in_the_new_language(window):
+    pages_before = window._stack.count()
+    window._language_btn.click()
+    assert window._stack.count() == pages_before
+
+    labels = {b.text() for b in window.findChildren(QPushButton)}
+    nav = text_data.load("navigation", "el")
+    for key in nav["nav_left"] + nav["nav_right"]:
+        assert text_data.page_title(key, "el") in labels
+        window._show_page(key)
+        assert window._stack.currentIndex() == window._page_indices[key]
+
+
+def test_language_switch_returns_to_main_page(window):
+    window._show_page("FAQ")
+    window._language_btn.click()
+    assert window._stack.currentIndex() == 0
+
+
+def test_language_switch_keeps_autostart_state(window):
+    window._autostart_cb.setChecked(False)
+    assert autostart.is_autostart_disabled()
+    window._language_btn.click()
+    assert not window._autostart_cb.isChecked()
+    assert autostart.is_autostart_disabled()
+
+
+def test_greek_labels_are_shown_after_switching(window):
+    window._language_btn.click()
+    labels = {b.text() for b in window.findChildren(QPushButton)}
+    assert text_data.load("ui_strings", "el")["configure_button"] in labels
+    assert text_data.page_title("Introduction", "el") in labels
+    assert text_data.page_title("Introduction", "el") != "Introduction"

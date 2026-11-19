@@ -16,9 +16,6 @@ from PyQt6.QtWidgets import (
 from ..helpers.text_data import load
 from ..styles.loader import load_qss
 
-UI = load("ui_strings")
-FOOTER_LINKS = load("navigation")["footer_links"]
-
 
 def qlabel(text, role="body", wrap=False):
     """@brief Creates a label styled by its role in labels.qss.
@@ -53,6 +50,7 @@ def back_bar(title, on_back):
     @param on_back Callback run when Back is clicked.
     @return The bar widget.
     """
+    UI = load("ui_strings")
     bar_widget = QWidget()
     bar_widget.setFixedHeight(40)
     bar_widget.setProperty("layout", "bar")
@@ -131,6 +129,7 @@ def footer(on_configure=None):
     @param on_configure Optional callback. When given, a Configure button is added that runs it.
     @return The footer widget.
     """
+    UI = load("ui_strings")
     footer_widget = QWidget()
     footer_widget.setFixedHeight(40)
     footer_widget.setProperty("layout", "bar")
@@ -148,7 +147,7 @@ def footer(on_configure=None):
         cfg.clicked.connect(lambda _: on_configure())
         ft.addWidget(cfg)
 
-    for link in FOOTER_LINKS:
+    for link in load("navigation")["footer_links"]:
         b = QPushButton(link["label"])
         b.setProperty("button", "footer-link")
         b.setStyleSheet(load_qss("widgets/controls.qss"))

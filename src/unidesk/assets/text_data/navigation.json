@@ -21,8 +21,45 @@
       "url": "https://github.com/open-source-uom"
     },
     {
-      "label": "Website",
+      "label": {
+        "en": "Website",
+        "el": "Ιστότοπος"
+      },
       "url": "https://open-source-uom.github.io/UniOS-landing-page/"
     }
-  ]
+  ],
+  "titles": {
+    "Introduction": {
+      "en": "Introduction",
+      "el": "Εισαγωγή"
+    },
+    "Features": {
+      "en": "Features",
+      "el": "Χαρακτηριστικά"
+    },
+    "Links": {
+      "en": "Links",
+      "el": "Σύνδεσμοι"
+    },
+    "FAQ": {
+      "en": "FAQ",
+      "el": "Συχνές ερωτήσεις"
+    },
+    "Community": {
+      "en": "Community",
+      "el": "Κοινότητα"
+    },
+    "Source Code": {
+      "en": "Source Code",
+      "el": "Πηγαίος κώδικας"
+    },
+    "Contribute": {
+      "en": "Contribute",
+      "el": "Συνεισφορά"
+    },
+    "Credits": {
+      "en": "Credits",
+      "el": "Συντελεστές"
+    }
+  }
 }

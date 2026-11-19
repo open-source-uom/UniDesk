@@ -9,18 +9,16 @@ from ...helpers.text_data import load
 from ...styles.loader import load_qss
 from ..widgets import card, qlabel, scroll_page
 
-LINKS = load("links")["links"]
-UI = load("ui_strings")
-
 
 def build_links_page(on_back):
     """@brief Creates the links page, with one card and Open button per link in links.json.
     @param on_back Callback run when Back is clicked.
     @return The page widget.
     """
+    UI = load("ui_strings")
     widget, cl = scroll_page(on_back, UI["links_page_title"])
 
-    for link in LINKS:
+    for link in load("links")["links"]:
         frame, fl = card(spacing=6)
 
         name = qlabel(link["label"], role="card-title")

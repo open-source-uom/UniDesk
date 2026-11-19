@@ -1,20 +1,35 @@
 {
   "Introduction": {
-    "body": "UniOS is a Linux distribution built specifically to be used by students & staff at all Greek Universities.\n\nIt is based on Arch and ships with a carefully selected set of tools for academic work, programming, and everyday use, all pre-configured so you can get started without any manual setup. It's developed and maintained by the Open Source UoM community."
+    "body": {
+      "en": "UniOS is a Linux distribution built specifically to be used by students & staff at all Greek Universities.\n\nIt is based on Arch and ships with a carefully selected set of tools for academic work, programming, and everyday use, all pre-configured so you can get started without any manual setup. It's developed and maintained by the Open Source UoM community.",
+      "el": "Το UniOS είναι μια διανομή Linux φτιαγμένη ειδικά για φοιτητές και προσωπικό όλων των ελληνικών πανεπιστημίων.\n\nΒασίζεται στο Arch και περιλαμβάνει προσεκτικά επιλεγμένα εργαλεία για ακαδημαϊκή εργασία, προγραμματισμό και καθημερινή χρήση, όλα προρυθμισμένα ώστε να ξεκινήσετε χωρίς καμία χειροκίνητη ρύθμιση. Αναπτύσσεται και συντηρείται από την κοινότητα Open Source UoM."
+    }
   },
   "Features": {
-    "body": "• KDE Plasma desktop, preconfigured with a clean academic theme\n• UniBackpack integration for installing additional software\n• UniNews a news aggregator for universities \n• Greek and English language support\n• Lightweight footprint - runs well on older hardware"
+    "body": {
+      "en": "• KDE Plasma desktop, preconfigured with a clean academic theme\n• UniBackpack integration for installing additional software\n• UniNews a news aggregator for universities \n• Greek and English language support\n• Lightweight footprint - runs well on older hardware",
+      "el": "• Επιφάνεια εργασίας KDE Plasma, προρυθμισμένη με καθαρό ακαδημαϊκό θέμα\n• Ενσωμάτωση UniBackpack για εγκατάσταση πρόσθετου λογισμικού\n• UniNews, ένας συγκεντρωτής ειδήσεων για πανεπιστήμια\n• Υποστήριξη ελληνικών και αγγλικών\n• Ελαφρύ αποτύπωμα - λειτουργεί καλά σε παλαιότερο υλικό"
+    }
   },
   "FAQ": {
     "body_from": "faq"
   },
   "Community": {
-    "body": "UniOS is built by students, for students.\n\nJoin the Open Source UoM community to:\n• Get help and support from fellow students\n• Share tips, tweaks, and configurations\n• Participate in workshops and coding events\n• Stay updated on new releases and features\n\nYou can find us on Discord — the invite link is in the footer.\nEveryone is welcome, regardless of experience level."
+    "body": {
+      "en": "UniOS is built by students, for students.\n\nJoin the Open Source UoM community to:\n• Get help and support from fellow students\n• Share tips, tweaks, and configurations\n• Participate in workshops and coding events\n• Stay updated on new releases and features\n\nYou can find us on Discord — the invite link is in the footer.\nEveryone is welcome, regardless of experience level.",
+      "el": "Το UniOS φτιάχνεται από φοιτητές, για φοιτητές.\n\nΣυμμετέχετε στην κοινότητα Open Source UoM για να:\n• Λάβετε βοήθεια και υποστήριξη από συναδέλφους φοιτητές\n• Μοιραστείτε συμβουλές, τροποποιήσεις και ρυθμίσεις\n• Συμμετάσχετε σε εργαστήρια και εκδηλώσεις προγραμματισμού\n• Μένετε ενημερωμένοι για νέες εκδόσεις και λειτουργίες\n\nΜπορείτε να μας βρείτε στο Discord — ο σύνδεσμος πρόσκλησης βρίσκεται στο υποσέλιδο.\nΟ καθένας είναι ευπρόσδεκτος, ανεξάρτητα από την εμπειρία του."
+    }
   },
   "Source Code": {
-    "body": "UniOS is fully open source.\n\nAll build scripts and code for the apps are publicly available on GitHub under an open license.\n\nRepositories:\n• UniOS - The Linux distro you are currently using.\n• UniNews a news aggregator for universities \n• UniBackpack - software installer tool for all Universities.\n• UniMate - A Webpage that helps you install various Linux apps.\n• UniDesk - this desktop launcher app.\n\nFeel free to fork, study, and adapt the code for your own projects. Pull requests and bug reports are always welcome."
+    "body": {
+      "en": "UniOS is fully open source.\n\nAll build scripts and code for the apps are publicly available on GitHub under an open license.\n\nRepositories:\n• UniOS - The Linux distro you are currently using.\n• UniNews a news aggregator for universities \n• UniBackpack - software installer tool for all Universities.\n• UniMate - A Webpage that helps you install various Linux apps.\n• UniDesk - this desktop launcher app.\n\nFeel free to fork, study, and adapt the code for your own projects. Pull requests and bug reports are always welcome.",
+      "el": "Το UniOS είναι πλήρως ανοιχτού κώδικα.\n\nΌλα τα build scripts και ο κώδικας των εφαρμογών είναι δημόσια διαθέσιμα στο GitHub με ανοιχτή άδεια.\n\nΑποθετήρια:\n• UniOS - Η διανομή Linux που χρησιμοποιείτε αυτή τη στιγμή.\n• UniNews - ένας συγκεντρωτής ειδήσεων για πανεπιστήμια.\n• UniBackpack - εργαλείο εγκατάστασης λογισμικού για όλα τα πανεπιστήμια.\n• UniMate - Μια ιστοσελίδα που σας βοηθά να εγκαταστήσετε διάφορες εφαρμογές Linux.\n• UniDesk - αυτή η εφαρμογή εκκίνησης.\n\nΜπορείτε ελεύθερα να κάνετε fork, να μελετήσετε και να προσαρμόσετε τον κώδικα για τα δικά σας έργα. Τα pull requests και οι αναφορές σφαλμάτων είναι πάντα ευπρόσδεκτα."
+    }
   },
   "Contribute": {
-    "body": "Want to help build UniOS? There are many ways to contribute:\n\n• Code - fix bugs, add features, improve scripts\n• Design - UI/UX improvements, icons, wallpapers\n• Documentation - write guides, translate content\n• Testing - try new builds and report issues\n• Community - help other students in Discord\n\nNo contribution is too small. Check our GitHub repositories to get started."
+    "body": {
+      "en": "Want to help build UniOS? There are many ways to contribute:\n\n• Code - fix bugs, add features, improve scripts\n• Design - UI/UX improvements, icons, wallpapers\n• Documentation - write guides, translate content\n• Testing - try new builds and report issues\n• Community - help other students in Discord\n\nNo contribution is too small. Check our GitHub repositories to get started.",
+      "el": "Θέλετε να βοηθήσετε στη δημιουργία του UniOS; Υπάρχουν πολλοί τρόποι να συνεισφέρετε:\n\n• Κώδικας - διορθώστε σφάλματα, προσθέστε λειτουργίες, βελτιώστε scripts\n• Σχεδιασμός - βελτιώσεις UI/UX, εικονίδια, ταπετσαρίες\n• Τεκμηρίωση - γράψτε οδηγούς, μεταφράστε περιεχόμενο\n• Δοκιμές - δοκιμάστε νέες εκδόσεις και αναφέρετε προβλήματα\n• Κοινότητα - βοηθήστε άλλους φοιτητές στο Discord\n\nΚαμία συνεισφορά δεν είναι πολύ μικρή. Δείτε τα αποθετήριά μας στο GitHub για να ξεκινήσετε."
+    }
   }
 }

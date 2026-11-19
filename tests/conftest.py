@@ -7,6 +7,10 @@ import pytest
 # Must be set before any QApplication exists (pytest-qt creates it lazily).
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
+# Pin the UI language so the suite doesn't depend on the machine's locale.
+# Must be set before unidesk is imported. Translation tests pass lang= explicitly.
+os.environ["UNIDESK_LANG"] = "en"
+
 
 @pytest.fixture(autouse=True)
 def isolated_home(tmp_path, monkeypatch):
@@ -32,3 +36,13 @@ def isolated_home(tmp_path, monkeypatch):
         str(home / ".config" / "autostart" / "unidesk.desktop"),
     )
     return home
+
+
+@pytest.fixture(autouse=True)
+def reset_language():
+    """The language button changes a process-wide setting, so reset it around every test."""
+    from unidesk.helpers import text_data
+
+    text_data.set_language("en")
+    yield
+    text_data.set_language("en")
