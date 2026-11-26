@@ -18,5 +18,8 @@
   "academic_department_placeholder": "Select department",
   "academic_save_button": "Save",
   "academic_error_incomplete": "Please select a university and department.",
-  "academic_saved_template": "Saved: {university} · {department}"
+  "academic_saved_template": "Saved: {university} · {department}",
+  "announcements_empty": "No announcements yet.",
+  "announcements_label": "Announcements",
+  "announcements_page_title": "Announcements"
 }

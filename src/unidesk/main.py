@@ -41,6 +41,7 @@ def main():
     window = UniOSWelcome()
     window.setWindowIcon(app_icon)
     window.show()
+    window.start_announcements()
     sys.exit(app.exec())
 
 

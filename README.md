@@ -46,10 +46,12 @@ src/unidesk/
     main.py                   entry point
     helpers/
         text_data.py          loads the text below from the bundled JSON
+        ann_fetcher.py        fetches, parses and caches the announcement
         academic_config.py    reads/writes the shared academic profile
         autostart.py          manages launching UniDesk at login
     ui/
         main_window.py        main window and all navigation logic
+        announcements_page.py builder for the announcements page
         widgets.py            shared widget helpers
         pages/                builders for each page (text, links, credits, academic config)
     styles/
@@ -66,11 +68,13 @@ src/unidesk/
         links.json            external links shown in the Links page
         navigation.json       nav button labels and footer links
         ui_strings.json       buttons, titles and other interface text
+        announcements.json    bundled fallback announcement
         academic_institutions.json  known universities and their departments
 tests/
     conftest.py               isolates $HOME and helper paths per test
     test_academic_config.py   load/save of ~/.unios/academicConfig.json
     test_autostart.py         autostart override on/off
+    test_announcements.py     announcement parsing, cache and fetcher behaviour
     test_text_data.py         JSON validity, nav/page mapping, ui_strings keys, links
     test_styles.py            .qss loading and asset resolution
     test_ui.py                offscreen smoke tests for the main window and config page
@@ -81,6 +85,10 @@ All user-facing text lives in `assets/text_data/`. To update page content edit `
 ## Academic profile
 
 The footer on the home screen has a **Configure UniOS** button. It opens a page where you pick your university and department from dropdowns, which is saved to `~/.unios/academicConfig.json`. Other UniOS apps (such as UniBackpack) read this file, so the available choices live in `assets/text_data/academic_institutions.json` and must stay in sync with those apps. If UniBackpack adds new universities or departments, mirror them in `assets/text_data/academic_institutions.json`.
+
+## Announcements
+
+The home screen has an **Announcements** row below the navigation grid. It opens a page showing one announcement at a time, with its title, publication date and body. The page reads the cached copy from `~/.unios/unidesk/announcements.json` when it is built, falls back to `assets/text_data/announcements.json`, and shows a muted empty-state line when neither is available. At startup UniDesk fetches the latest version from the project site once; network or parsing failures are ignored, and the fetched copy is cached for the next launch.
 
 ## Contributing
 
