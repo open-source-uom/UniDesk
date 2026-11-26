@@ -12,9 +12,11 @@ from PyQt6.QtWidgets import (
     QWidget,
 )
 
+from ..helpers import ann_fetcher
 from ..helpers.autostart import set_autostart
 from ..helpers.text_data import load, pages
 from ..styles.loader import load_qss
+from .announcements_page import build_announcements_page
 from .pages.academic_config_page import build_academic_config_page
 from .pages.credits_page import build_credits_page
 from .pages.links_page import build_links_page
@@ -33,7 +35,7 @@ NAV_RIGHT = _NAV["nav_right"]
 # Main Window
 
 
-class UniOSWelcome(QMainWindow):
+class UniOSWelcome(QMainWindow):  # pylint: disable=too-many-instance-attributes
     """@brief Main window with a hero, the nav buttons and a stack of subpages.
 
     Index 0 of the stack is the main page and every subpage is looked up by its title.
@@ -50,9 +52,14 @@ class UniOSWelcome(QMainWindow):
         self._stack = QStackedWidget()
         self.setCentralWidget(self._stack)
         self._page_indices = {}
+        self._announcement_item = ann_fetcher.current_announcement()
 
         self._build_main()
         self._build_subpages()
+        self._announcement_fetcher = ann_fetcher.AnnouncementFetcher(self)
+        self._announcement_fetcher.announcement_ready.connect(
+            self._on_announcement_fetched
+        )
 
     def _build_main(self):
         main_page = QWidget()
@@ -80,6 +87,7 @@ class UniOSWelcome(QMainWindow):
         nav_layout.addLayout(left_col)
         nav_layout.addLayout(right_col)
         mp.addWidget(nav_widget, stretch=1)
+        mp.addWidget(self._build_announcements_row())
         mp.addLayout(bottom_row)
 
         mp.addWidget(divider())
@@ -134,17 +142,49 @@ class UniOSWelcome(QMainWindow):
         bottom_row.addWidget(cfg_btn)
         return bottom_row, autostart_cb
 
+    def _build_announcements_row(self):
+        """@brief Builds the full-width announcements row under the nav grid.
+        @return The container widget placed below the nav columns.
+        """
+        row = QWidget()
+        row.setProperty("layout", "transparent")
+        row.setStyleSheet(load_qss("widgets/layout.qss"))
+        layout = QHBoxLayout(row)
+        layout.setContentsMargins(28, 0, 28, 14)
+        layout.setSpacing(0)
+
+        btn = NavButton(UI["announcements_label"])
+        btn.clicked.connect(lambda _: self._show_page(UI["announcements_page_title"]))
+        layout.addWidget(btn)
+        return row
+
+    def _on_announcement_fetched(self, item):
+        """@brief Caches a fetched announcement when it differs from the current one.
+        @param item The fetched normalised announcement.
+        """
+        if item == self._announcement_item:
+            return
+        self._announcement_item = item
+        ann_fetcher.save_cached_announcement(item)
+
     def _build_subpages(self):
         subpages = {
             **{key: build_text_page(key, self._show_main) for key in PAGES},
             UI["credits_page_title"]: build_credits_page(self._show_main),
             UI["links_page_title"]: build_links_page(self._show_main),
+            UI["announcements_page_title"]: build_announcements_page(
+                self._show_main
+            ),
             UI["academic_config_page_title"]: build_academic_config_page(
                 self._show_main
             ),
         }
         for key, widget in subpages.items():
             self._page_indices[key] = self._stack.addWidget(widget)
+
+    def start_announcements(self):
+        """@brief Starts the single announcement fetch for this launch."""
+        self._announcement_fetcher.start()
 
     def _toggle_autostart(self, _state):
         set_autostart(self._autostart_cb.isChecked())
