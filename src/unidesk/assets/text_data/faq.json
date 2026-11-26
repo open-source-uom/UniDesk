@@ -17,7 +17,7 @@
       },
       "answer": {
         "en": "Run `sudo pacman -Syu or use unios-update in a terminal.",
-        "el": "Εκτελέστε sudo pacman -Syu ή χρησιμοποιήστε το unios-update σε ένα τερματικό."
+        "el": "Εκτελέστε `sudo pacman -Syu ή χρησιμοποιήστε το unios-update σε ένα τερματικό."
       }
     },
     {
@@ -33,11 +33,11 @@
     {
       "question": {
         "en": "Can I use UniOS on my personal laptop?",
-        "el": "Μπορώ να χρησιμοποιήσω το UniOS στον προσωπικό μου φορητό υπολογιστή;"
+        "el": "Μπορώ να χρησιμοποιήσω το UniOS στο laptop μου;"
       },
       "answer": {
         "en": "Absolutely - it is designed for any hardware.",
-        "el": "Φυσικά - έχει σχεδιαστεί για οποιοδήποτε υλικό."
+        "el": "Φυσικά - έχει σχεδιαστεί για οποιαδήποτε συσκευή."
       }
     },
     {
@@ -47,7 +47,7 @@
       },
       "answer": {
         "en": "Yes, UniOS is free as in freedom not as in beer.",
-        "el": "Ναι, το UniOS είναι δωρεάν υπό την έννοια της ελευθερίας (free as in freedom), όχι της δωρεάν μπίρας."
+        "el": "Ναι, το UniOS είναι δωρεάν υπό την έννοια της ελευθερίας, όχι της δωρεάν μπίρας."
       }
     }
   ]

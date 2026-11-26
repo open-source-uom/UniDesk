@@ -3,40 +3,40 @@
 import json
 import os
 
-from unidesk.helpers import settings
+from unidesk.helpers import translate
 
 
 def test_no_saved_language_by_default():
-    assert settings.load_language() is None
+    assert translate.load_language() is None
 
 
 def test_language_round_trip():
-    settings.save_language("el")
-    assert settings.load_language() == "el"
+    translate.save_language("el")
+    assert translate.load_language() == "el"
 
 
 def test_corrupt_file_is_ignored():
-    path = settings._settings_path()
+    path = translate._settings_path()
     os.makedirs(os.path.dirname(path))
     with open(path, "w", encoding="utf-8") as f:
         f.write("{not json")
-    assert settings.load_language() is None
+    assert translate.load_language() is None
 
 
 def test_non_dict_json_is_ignored():
-    path = settings._settings_path()
+    path = translate._settings_path()
     os.makedirs(os.path.dirname(path))
     with open(path, "w", encoding="utf-8") as f:
         json.dump(["el"], f)
-    assert settings.load_language() is None
+    assert translate.load_language() is None
 
 
 def test_save_keeps_other_keys():
-    path = settings._settings_path()
+    path = translate._settings_path()
     os.makedirs(os.path.dirname(path))
     with open(path, "w", encoding="utf-8") as f:
         json.dump({"other": 1}, f)
-    settings.save_language("el")
+    translate.save_language("el")
     with open(path, encoding="utf-8") as f:
         assert json.load(f) == {"other": 1, "language": "el"}
 
@@ -44,10 +44,10 @@ def test_save_keeps_other_keys():
 def test_unwritable_location_does_not_raise(isolated_home):
     # A regular file where the ~/.config directory should be makes makedirs fail.
     (isolated_home / ".config").write_text("not a directory")
-    settings.save_language("el")  # must not raise
-    assert settings.load_language() is None
+    translate.save_language("el")  # must not raise
+    assert translate.load_language() is None
 
 
 def test_does_not_touch_the_shared_academic_profile(isolated_home):
-    settings.save_language("el")
+    translate.save_language("el")
     assert not (isolated_home / ".unios").exists()

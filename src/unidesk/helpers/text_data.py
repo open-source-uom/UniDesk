@@ -11,7 +11,7 @@ import os
 from functools import cache
 from importlib.resources import files
 
-from . import settings
+from . import translate
 
 _TEXT_DATA_PACKAGE = "unidesk.assets.text_data"
 
@@ -36,7 +36,7 @@ def detect_language():
     if override:
         return override if override in SUPPORTED else DEFAULT_LANG
 
-    saved = settings.load_language()
+    saved = translate.load_language()
     if saved in SUPPORTED:
         return saved
 

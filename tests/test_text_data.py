@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from unidesk.helpers import settings, text_data
+from unidesk.helpers import text_data, translate
 
 JSON_NAMES = sorted(
     p.name.removesuffix(".json")
@@ -190,13 +190,13 @@ def _clear_language_env(monkeypatch):
 def test_saved_language_beats_system_language(monkeypatch):
     _clear_language_env(monkeypatch)
     monkeypatch.setenv("LANG", "en_US.UTF-8")
-    settings.save_language("el")
+    translate.save_language("el")
     assert text_data.detect_language() == "el"
 
 
 def test_env_override_beats_saved_language(monkeypatch):
     _clear_language_env(monkeypatch)
-    settings.save_language("el")
+    translate.save_language("el")
     monkeypatch.setenv("UNIDESK_LANG", "en")
     assert text_data.detect_language() == "en"
 
@@ -204,7 +204,7 @@ def test_env_override_beats_saved_language(monkeypatch):
 def test_unsupported_saved_language_is_ignored(monkeypatch):
     _clear_language_env(monkeypatch)
     monkeypatch.setenv("LANG", "el_GR.UTF-8")
-    settings.save_language("xx")
+    translate.save_language("xx")
     assert text_data.detect_language() == "el"
 
 

@@ -20,7 +20,7 @@
     },
     {
       "label": {
-        "en": "Uni OS Official Webpage",
+        "en": "UniOS Official Webpage",
         "el": "Επίσημη ιστοσελίδα UniOS"
       },
       "url": "https://open-source-uom.github.io/UniOS-landing-page/"
@@ -28,7 +28,7 @@
     {
       "label": {
         "en": "UniOS Docs",
-        "el": "Τεκμηρίωση UniOS"
+        "el": "Τεχνική αναφορά του UniOS"
       },
       "url": "https://open-source-uom.github.io/UniOS-docs/"
     }

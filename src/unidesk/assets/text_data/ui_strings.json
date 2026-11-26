@@ -6,7 +6,7 @@
   },
   "hero_subtitle": {
     "en": "A custom Linux distribution for the modern Greek university",
-    "el": "Μια προσαρμοσμένη διανομή Linux για το σύγχρονο ελληνικό πανεπιστήμιο"
+    "el": "Μια προσαρμοσμένη διανομή Linux για τα σύγχρονα ελληνικά πανεπιστήμια"
   },
   "back_button": {
     "en": "← Back",
@@ -27,7 +27,7 @@
   },
   "configure_button": {
     "en": "Configure UniOS",
-    "el": "Ρύθμιση UniOS"
+    "el": "Παραμετροποίηση UniOS"
   },
   "credits_page_title": {
     "en": "Credits",
@@ -39,7 +39,7 @@
   },
   "academic_config_page_title": {
     "en": "Configure UniOS",
-    "el": "Ρύθμιση UniOS"
+    "el": "Παραμετροποίηση UniOS"
   },
   "academic_config_intro": {
     "en": "Set your university and department. This profile is shared with other UniOS apps, so pick the entries that match your studies.",
@@ -75,10 +75,10 @@
   },
   "faq_question_prefix": {
     "en": "Q: ",
-    "el": "Ερώτηση: "
+    "el": "Ε: "
   },
   "faq_answer_prefix": {
     "en": "A: ",
-    "el": "Απάντηση: "
+    "el": "Α: "
   }
 }

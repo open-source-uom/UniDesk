@@ -5,7 +5,7 @@ import json
 import pytest
 from PyQt6.QtWidgets import QComboBox, QPushButton
 
-from unidesk.helpers import academic_config, autostart, settings, text_data
+from unidesk.helpers import academic_config, autostart, text_data, translate
 
 UI = text_data.load("ui_strings")
 UNIS = text_data.load("academic_institutions")["universities"]
@@ -126,12 +126,12 @@ def test_language_button_shows_the_other_language(window):
 def test_language_button_switches_and_saves(window):
     window._language_btn.click()
     assert text_data.get_language() == "el"
-    assert settings.load_language() == "el"
+    assert translate.load_language() == "el"
     assert window._language_btn.text() == text_data.LANGUAGE_NAMES["en"]
 
     window._language_btn.click()
     assert text_data.get_language() == "en"
-    assert settings.load_language() == "en"
+    assert translate.load_language() == "en"
     assert window._language_btn.text() == text_data.LANGUAGE_NAMES["el"]
 
 
