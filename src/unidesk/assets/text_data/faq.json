@@ -1,24 +1,54 @@
 {
   "entries": [
     {
-      "question": "Can I install UniOS alongside Windows?",
-      "answer": "Yes, the installer supports dual boot."
+      "question": {
+        "en": "Can I install UniOS alongside Windows?",
+        "el": "Μπορώ να εγκαταστήσω το UniOS παράλληλα με τα Windows;"
+      },
+      "answer": {
+        "en": "Yes, the installer supports dual boot.",
+        "el": "Ναι, ο εγκαταστάτης υποστηρίζει dual boot."
+      }
     },
     {
-      "question": "How do I update the system?",
-      "answer": "Run `sudo pacman -Syu or use unios-update in a terminal."
+      "question": {
+        "en": "How do I update the system?",
+        "el": "Πώς ενημερώνω το σύστημα;"
+      },
+      "answer": {
+        "en": "Run `sudo pacman -Syu or use unios-update in a terminal.",
+        "el": "Εκτελέστε `sudo pacman -Syu ή χρησιμοποιήστε το unios-update σε ένα τερματικό."
+      }
     },
     {
-      "question": "Something is broken. Where do I report it?",
-      "answer": "Open an issue on our GitHub repository or reach out on Discord."
+      "question": {
+        "en": "Something is broken. Where do I report it?",
+        "el": "Κάτι δεν λειτουργεί. Πού μπορώ να το αναφέρω;"
+      },
+      "answer": {
+        "en": "Open an issue on our GitHub repository or reach out on Discord.",
+        "el": "Ανοίξτε ένα issue στο αποθετήριό μας στο GitHub ή επικοινωνήστε μαζί μας στο Discord."
+      }
     },
     {
-      "question": "Can I use UniOS on my personal laptop?",
-      "answer": "Absolutely - it is designed for any hardware."
+      "question": {
+        "en": "Can I use UniOS on my personal laptop?",
+        "el": "Μπορώ να χρησιμοποιήσω το UniOS στο laptop μου;"
+      },
+      "answer": {
+        "en": "Absolutely - it is designed for any hardware.",
+        "el": "Φυσικά - έχει σχεδιαστεί για οποιαδήποτε συσκευή."
+      }
     },
     {
-      "question": "Is UniOS free?",
-      "answer": "Yes, UniOS is free as in freedom not as in beer."
+      "question": {
+        "en": "Is UniOS free?",
+        "el": "Είναι το UniOS δωρεάν;"
+      },
+      "answer": {
+        "en": "Yes, UniOS is free as in freedom not as in beer.",
+        "el": "Ναι, το UniOS είναι δωρεάν υπό την έννοια της ελευθερίας, όχι της δωρεάν μπίρας."
+      }
     }
   ]
 }

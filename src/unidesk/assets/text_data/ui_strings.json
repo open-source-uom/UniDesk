@@ -1,22 +1,84 @@
 {
   "window_title": "UniDesk",
-  "hero_title": "Welcome to UniOS",
-  "hero_subtitle": "A custom Linux distribution for the modern Greek university",
-  "back_button": "← Back",
+  "hero_title": {
+    "en": "Welcome to UniOS",
+    "el": "Καλώς ήρθατε στο UniOS"
+  },
+  "hero_subtitle": {
+    "en": "A custom Linux distribution for the modern Greek university",
+    "el": "Μια προσαρμοσμένη διανομή Linux για τα σύγχρονα ελληνικά πανεπιστήμια"
+  },
+  "back_button": {
+    "en": "← Back",
+    "el": "← Πίσω"
+  },
   "footer_copyright": "Open Source UoM · 2026",
-  "open_link_button": "Open Link",
-  "projects_prefix": "Projects: ",
-  "autostart_checkbox": "Auto start",
-  "configure_button": "Configure UniOS",
-  "credits_page_title": "Credits",
-  "links_page_title": "Links",
-  "academic_config_page_title": "Configure UniOS",
-  "academic_config_intro": "Set your university and department. This profile is shared with other UniOS apps, so pick the entries that match your studies.",
-  "academic_university_label": "University",
-  "academic_department_label": "Department",
-  "academic_university_placeholder": "Select university",
-  "academic_department_placeholder": "Select department",
-  "academic_save_button": "Save",
-  "academic_error_incomplete": "Please select a university and department.",
-  "academic_saved_template": "Saved: {university} · {department}"
+  "open_link_button": {
+    "en": "Open Link",
+    "el": "Άνοιγμα συνδέσμου"
+  },
+  "projects_prefix": {
+    "en": "Projects: ",
+    "el": "Έργα: "
+  },
+  "autostart_checkbox": {
+    "en": "Auto start",
+    "el": "Αυτόματη εκκίνηση"
+  },
+  "configure_button": {
+    "en": "Configure UniOS",
+    "el": "Παραμετροποίηση UniOS"
+  },
+  "credits_page_title": {
+    "en": "Credits",
+    "el": "Συντελεστές"
+  },
+  "links_page_title": {
+    "en": "Links",
+    "el": "Σύνδεσμοι"
+  },
+  "academic_config_page_title": {
+    "en": "Configure UniOS",
+    "el": "Παραμετροποίηση UniOS"
+  },
+  "academic_config_intro": {
+    "en": "Set your university and department. This profile is shared with other UniOS apps, so pick the entries that match your studies.",
+    "el": "Ορίστε το πανεπιστήμιο και το τμήμα σας. Το προφίλ αυτό μοιράζεται με τις υπόλοιπες εφαρμογές του UniOS, οπότε επιλέξτε τα στοιχεία που αντιστοιχούν στις σπουδές σας."
+  },
+  "academic_university_label": {
+    "en": "University",
+    "el": "Πανεπιστήμιο"
+  },
+  "academic_department_label": {
+    "en": "Department",
+    "el": "Τμήμα"
+  },
+  "academic_university_placeholder": {
+    "en": "Select university",
+    "el": "Επιλέξτε πανεπιστήμιο"
+  },
+  "academic_department_placeholder": {
+    "en": "Select department",
+    "el": "Επιλέξτε τμήμα"
+  },
+  "academic_save_button": {
+    "en": "Save",
+    "el": "Αποθήκευση"
+  },
+  "academic_error_incomplete": {
+    "en": "Please select a university and department.",
+    "el": "Παρακαλώ επιλέξτε πανεπιστήμιο και τμήμα."
+  },
+  "academic_saved_template": {
+    "en": "Saved: {university} · {department}",
+    "el": "Αποθηκεύτηκε: {university} · {department}"
+  },
+  "faq_question_prefix": {
+    "en": "Q: ",
+    "el": "Ε: "
+  },
+  "faq_answer_prefix": {
+    "en": "A: ",
+    "el": "Α: "
+  }
 }

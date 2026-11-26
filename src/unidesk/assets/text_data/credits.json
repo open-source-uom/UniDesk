@@ -2,7 +2,10 @@
   "people": [
     {
       "name": "Apostolos Chalis",
-      "role": "Lead Engineer",
+      "role": {
+        "en": "Lead Engineer",
+        "el": "Επικεφαλής μηχανικός"
+      },
       "projects": [
         "UniOS",
         "UniBackpack",
@@ -11,7 +14,10 @@
     },
     {
       "name": "Emanuela Goxha",
-      "role": "Developer & Designer",
+      "role": {
+        "en": "Developer & Designer",
+        "el": "Προγραμματίστρια & σχεδιάστρια"
+      },
       "projects": [
         "UniMate",
         "UniDesk"
@@ -19,11 +25,17 @@
     },
     {
       "name": "Malamatenia Soulioti",
-      "role": "Lead Designer"
+      "role": {
+        "en": "Lead Designer",
+        "el": "Επικεφαλής σχεδιάστρια"
+      }
     },
     {
       "name": "Ioannis Michadasis",
-      "role": "Engineer",
+      "role": {
+        "en": "Engineer",
+        "el": "Μηχανικός"
+      },
       "projects": [
         "UniOS",
         "UniBackpack",
@@ -32,14 +44,20 @@
     },
     {
       "name": "Alexandra Iordanidou",
-      "role": "Community Moderator",
+      "role": {
+        "en": "Community Moderator",
+        "el": "Συντονίστριας κοινότητας"
+      },
       "projects": [
         "UniDesk"
       ]
     },
     {
       "name": "George David Apostolidis",
-      "role": "Engineer",
+      "role": {
+        "en": "Engineer",
+        "el": "Μηχανικός"
+      },
       "projects": [
         "UniNews"
       ]
